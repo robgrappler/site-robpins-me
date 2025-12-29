@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import { projects } from '../data/config';
+---
+
+<BaseLayout title="Projects | Rob Pins" description="Projects and archives from Rob Pins.">
+  <div class="mx-auto flex max-w-3xl flex-col gap-10 px-6 py-20">
+    <a class="btn btn-ghost" href="/">Back to home</a>
+
+    <section class="flex flex-col gap-6">
+      <SectionHeading title="PROJECTS" subtitle="Current focus and upcoming work." />
+      <div class="grid gap-4">
+        {projects.map((project) => (
+          <div class="link-card card card-body flex flex-col gap-2">
+            <div class="flex items-center justify-between">
+              <h2 class="text-lg font-semibold text-white">{project.title}</h2>
+              {project.status && (
+                <span class="badge badge-outline text-xs uppercase tracking-[0.2em] text-slate-400">
+                  {project.status}
+                </span>
+              )}
+            </div>
+            <p class="text-sm text-slate-400">{project.description}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  </div>
+</BaseLayout>
