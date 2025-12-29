@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import { links } from '../data/config';
+
+const contactLink = links.find((link) => link.id === 'contact');
+---
+
+<BaseLayout title="Contact | Rob Pins" description="Contact Rob Pins.">
+  <div class="mx-auto flex max-w-3xl flex-col gap-10 px-6 py-20">
+    <a class="btn btn-ghost" href="/">Back to home</a>
+
+    <section class="flex flex-col gap-6">
+      <SectionHeading title="CONTACT" subtitle="Email and collaboration inquiries." />
+      <div class="link-card card card-body flex flex-col gap-4">
+        <h2 class="text-lg font-semibold text-white">Email</h2>
+        <p class="text-sm text-slate-400">
+          Reach out for collaborations, press, or general questions.
+        </p>
+        {contactLink && (
+          <a class="btn btn-primary w-fit" href={contactLink.href}>
+            {contactLink.cta ?? 'EMAIL'}
+          </a>
+        )}
+      </div>
+      <div class="text-sm text-slate-500">
+        Optional form support can be added later as needed.
+      </div>
+    </section>
+  </div>
+</BaseLayout>

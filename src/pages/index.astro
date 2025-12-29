@@ -1,0 +1,68 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import LinkCard from '../components/LinkCard.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import { links, projects } from '../data/config';
+
+const primaryLink = links.find((link) => link.primary) ?? links[0];
+---
+
+<BaseLayout>
+  <div class="mx-auto flex max-w-4xl flex-col gap-16 px-6 py-20 sm:py-24">
+    <header class="flex flex-col gap-6">
+      <span class="text-xs font-semibold tracking-[0.3em] text-slate-400">SITE</span>
+      <div class="flex flex-col gap-3">
+        <h1 class="text-4xl font-semibold text-white sm:text-5xl">Rob Pins</h1>
+        <p class="text-base text-slate-400 sm:text-lg">Public links and projects.</p>
+      </div>
+      <div>
+        {primaryLink && (
+          <a
+            class="btn btn-lg btn-primary"
+            href={primaryLink.href}
+            target="_blank"
+            rel="noreferrer noopener"
+          >
+            OPEN
+          </a>
+        )}
+      </div>
+    </header>
+
+    <section class="flex flex-col gap-6">
+      <SectionHeading title="LINKS" subtitle="Official channels and contact." />
+      <div class="grid gap-4">
+        {links.map((item) => (
+          <LinkCard item={item} />
+        ))}
+      </div>
+    </section>
+
+    <section class="flex flex-col gap-6">
+      <SectionHeading title="PROJECTS" subtitle="Focused experiments and archives." />
+      <div class="grid gap-4">
+        {projects.map((project) => (
+          <div class="link-card card card-body flex flex-col gap-3">
+            <div class="flex items-center justify-between">
+              <h3 class="text-lg font-semibold text-white">{project.title}</h3>
+              {project.status && (
+                <span class="badge badge-outline text-xs uppercase tracking-[0.2em] text-slate-400">
+                  {project.status}
+                </span>
+              )}
+            </div>
+            <p class="text-sm text-slate-400">{project.description}</p>
+          </div>
+        ))}
+      </div>
+      <div>
+        <a class="btn btn-ghost" href="/projects">View all</a>
+      </div>
+    </section>
+
+    <footer class="flex flex-col gap-3 border-t border-slate-800 pt-8 text-xs text-slate-500">
+      <p>© {new Date().getFullYear()} Rob Pins. All rights reserved.</p>
+      <p>Public hub. External links may have different terms.</p>
+    </footer>
+  </div>
+</BaseLayout>

@@ -1,0 +1,20 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+---
+
+<BaseLayout title="Blog | Rob Pins" description="Blog placeholder for Rob Pins.">
+  <div class="mx-auto flex max-w-3xl flex-col gap-10 px-6 py-20">
+    <a class="btn btn-ghost" href="/">Back to home</a>
+
+    <section class="flex flex-col gap-6">
+      <SectionHeading title="BLOG" subtitle="Updates and long-form notes." />
+      <div class="link-card card card-body flex flex-col gap-3">
+        <h2 class="text-lg font-semibold text-white">Coming soon</h2>
+        <p class="text-sm text-slate-400">
+          A placeholder for future posts. Check back for updates.
+        </p>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
