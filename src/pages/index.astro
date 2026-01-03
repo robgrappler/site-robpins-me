@@ -1,64 +1,89 @@
 ---
 /* src/pages/index.astro - Rob Pins public landing page (YouTube-safe) */
-import BaseLayout from '../layouts/BaseLayout.astro';
-import LinkCard from '../components/LinkCard.astro';
-import SectionHeading from '../components/SectionHeading.astro';
-import { links, projects } from '../data/config';
+import BaseLayout from "../layouts/BaseLayout.astro";
+import LinkCard from "../components/LinkCard.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import { links, projects } from "../data/config";
 
 const primaryLink = links.find((link) => link.primary) ?? links[0];
 ---
 
 <BaseLayout>
-  <div class="mx-auto flex max-w-4xl flex-col gap-16 px-6 py-20 sm:py-24">
-    <header class="flex flex-col gap-6">
-      <span class="text-xs font-semibold tracking-[0.3em] text-slate-400">SITE</span>
-      <div class="flex flex-col gap-3">
-        <h1 class="text-4xl font-semibold text-white sm:text-5xl">Rob Pins</h1>
-        <p class="text-base text-slate-400 sm:text-lg">Official links and selected projects.</p>
-      </div>
-      <div>
-        {primaryLink && (
-          <a class="btn btn-lg btn-primary" href="/projects">
-            START HERE
-          </a>
-        )}
+  <div class="mx-auto max-w-5xl px-6 py-12 sm:py-20">
+    <header class="mb-12 flex flex-col gap-4 text-center sm:text-left">
+      <span class="text-xs font-semibold tracking-[0.3em] text-slate-400"
+        >SITE</span
+      >
+      <div class="flex flex-col gap-2">
+        <h1 class="text-4xl font-semibold text-white sm:text-6xl">Rob Pins</h1>
+        <p class="text-base text-slate-400 sm:text-xl max-w-2xl">
+          Official links, projects, and digital garden.
+        </p>
       </div>
     </header>
 
-    <section class="flex flex-col gap-6">
-      <SectionHeading title="LINKS" subtitle="All official public channels." />
-      <div class="grid gap-4">
-        {links.map((item) => (
-          <LinkCard item={item} />
-        ))}
-      </div>
-    </section>
-
-    <section class="flex flex-col gap-6">
-      <SectionHeading title="PROJECTS" subtitle="Focused projects and long-term experiments." />
-      <div class="grid gap-4">
-        {projects.map((project) => (
-          <div class="link-card card card-body flex flex-col gap-3">
-            <div class="flex items-center justify-between">
-              <h3 class="text-lg font-semibold text-white">{project.title}</h3>
-              {project.status && (
-                <span class="badge badge-outline text-xs uppercase tracking-[0.2em] text-slate-400">
-                  {project.status}
-                </span>
-              )}
-            </div>
-            <p class="text-sm text-slate-400">{project.description}</p>
+    <main
+      class="grid grid-cols-1 gap-4 md:grid-cols-3 md:grid-rows-2 auto-rows-fr"
+    >
+      {/* Hero Cell (Primary Link) */}
+      {
+        primaryLink && (
+          <div class="col-span-1 md:col-span-2 md:row-span-2 h-full">
+            <LinkCard item={primaryLink} featured={true} />
           </div>
-        ))}
+        )
+      }
+
+      {/* Secondary Links */}
+      {
+        links
+          .filter((l) => l !== primaryLink)
+          .map((item) => (
+            <div class="col-span-1 h-full">
+              <LinkCard item={item} />
+            </div>
+          ))
+      }
+    </main>
+
+    <section class="mt-16 flex flex-col gap-8">
+      <SectionHeading
+        title="PROJECTS"
+        subtitle="Focused projects and long-term experiments."
+      />
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          projects.map((project) => (
+            <div class="link-card card card-body flex flex-col gap-3 justify-between h-full">
+              <div class="flex flex-col gap-2">
+                <div class="flex items-center justify-between">
+                  <h3 class="text-lg font-semibold text-white">
+                    {project.title}
+                  </h3>
+                  {project.status && (
+                    <span class="badge badge-outline text-xs uppercase tracking-[0.2em] text-slate-400">
+                      {project.status}
+                    </span>
+                  )}
+                </div>
+                <p class="text-sm text-slate-400">{project.description}</p>
+              </div>
+              <a class="btn btn-sm btn-ghost self-start mt-2" href="/projects">
+                View Project
+              </a>
+            </div>
+          ))
+        }
       </div>
       <div>
-        <a class="btn btn-ghost" href="/projects">View all</a>
+        <a class="btn btn-ghost" href="/projects">View all projects &rarr;</a>
       </div>
     </section>
 
-    <footer class="flex flex-col gap-3 border-t border-slate-800 pt-8 text-xs text-slate-500">
+    <footer
+      class="mt-20 border-t border-slate-800 pt-8 text-center text-xs text-slate-500 sm:text-left"
+    >
       <p>© {new Date().getFullYear()} Rob Pins. All rights reserved.</p>
-      <p>Public hub. External links are subject to their own terms.</p>
     </footer>
   </div>
 </BaseLayout>

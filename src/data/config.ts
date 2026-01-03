@@ -1,6 +1,21 @@
 // src/data/config.ts - Link + project data for the site (YouTube-safe copy)
 
-export const links = [
+export interface LinkItem {
+  title: string;
+  href: string;
+  description: string;
+  primary?: boolean;
+  cta?: string;
+}
+
+export interface ProjectItem {
+  title: string;
+  description: string;
+  status?: string;
+  href?: string;
+}
+
+export const links: LinkItem[] = [
   {
     title: 'Website',
     href: 'https://robpins.me',
@@ -30,6 +45,6 @@ export const links = [
   },
 ];
 
-export const projects = [
+export const projects: ProjectItem[] = [
   // keep your real projects here (don’t invent random ones)
 ];

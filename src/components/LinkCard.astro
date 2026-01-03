@@ -1,29 +1,55 @@
 ---
-import type { LinkItem } from '../data/config';
+import type { LinkItem } from "../data/config";
 
 interface Props {
   item: LinkItem;
+  featured?: boolean;
 }
 
-const { item } = Astro.props;
-const isExternal = item.href.startsWith('http');
-const ctaLabel = item.cta ?? 'OPEN';
+const { item, featured = false } = Astro.props;
+const isExternal = item.href.startsWith("http");
+const ctaLabel = item.cta ?? "OPEN";
 ---
 
 <a
-  class={`link-card card card-body flex flex-col gap-4 transition duration-200 ${
-    item.primary ? 'border border-slate-500/40' : ''
+  class={`link-card card card-body flex flex-col justify-between transition duration-200 h-full group ${
+    featured
+      ? "bg-gradient-to-br from-ink-800 to-ink-900 border-slate-500/50 hover:border-slate-400/60 shadow-2xl relative overflow-hidden"
+      : "hover:border-slate-400/30"
   }`}
   href={item.href}
-  target={isExternal ? '_blank' : undefined}
-  rel={isExternal ? 'noreferrer noopener' : undefined}
+  target={isExternal ? "_blank" : undefined}
+  rel={isExternal ? "noreferrer noopener" : undefined}
 >
-  <div class="flex flex-col gap-1">
-    <h3 class="text-lg font-semibold text-white">{item.title}</h3>
-    <p class="text-sm text-slate-400">{item.description}</p>
+  {
+    featured && (
+      <div class="absolute -right-12 -top-12 h-48 w-48 rounded-full bg-slate-500/10 blur-3xl transition-opacity duration-500 group-hover:opacity-75" />
+    )
+  }
+
+  <div class="flex flex-col gap-2 z-10">
+    <h3
+      class={`${featured ? "text-3xl sm:text-4xl" : "text-lg"} font-semibold text-white`}
+    >
+      {item.title}
+    </h3>
+    <p
+      class={`${featured ? "text-lg sm:text-xl text-slate-300" : "text-sm text-slate-400"}`}
+    >
+      {item.description}
+    </p>
   </div>
-  <div class="flex items-center justify-between">
-    <span class="text-xs uppercase tracking-[0.3em] text-slate-500">Link</span>
-    <span class="btn btn-outline btn-sm btn-ghost">{ctaLabel}</span>
+
+  <div class="flex items-center justify-between mt-4 z-10">
+    <span
+      class={`text-xs uppercase tracking-[0.3em] ${featured ? "text-slate-400" : "text-slate-500"}`}
+    >
+      {featured ? "Start Here" : "Link"}
+    </span>
+    <span
+      class={`btn btn-sm ${featured ? "btn-primary border-none text-ink-900" : "btn-outline btn-ghost"}`}
+    >
+      {ctaLabel}
+    </span>
   </div>
 </a>
