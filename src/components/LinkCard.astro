@@ -14,7 +14,7 @@ const ctaLabel = item.cta ?? "OPEN";
 <a
   class={`link-card card card-body flex flex-col justify-between h-full group transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] ${
     featured
-      ? "bg-gradient-to-br from-ink-800 to-ink-900 border-slate-500/50 hover:border-slate-400/60 shadow-2xl relative overflow-hidden"
+      ? "bg-gradient-to-br from-ink-900 to-gold-900/20 border-gold-500/50 hover:border-gold-400/60 shadow-2xl relative overflow-hidden"
       : "hover:border-slate-400/30"
   }`}
   href={item.href}
@@ -42,12 +42,12 @@ const ctaLabel = item.cta ?? "OPEN";
 
   <div class="flex items-center justify-between mt-4 z-10">
     <span
-      class={`text-xs uppercase tracking-[0.3em] ${featured ? "text-slate-400" : "text-slate-500"}`}
+      class={`text-xs uppercase tracking-[0.3em] ${featured ? "text-gold-400" : "text-slate-500"}`}
     >
       {featured ? "Start Here" : "Link"}
     </span>
     <span
-      class={`btn btn-sm ${featured ? "btn-primary border-none text-ink-900" : "btn-outline btn-ghost"}`}
+      class={`btn btn-sm ${featured ? "bg-gold-500 hover:bg-gold-400 border-none text-ink-900" : "btn-outline btn-ghost"}`}
     >
       {ctaLabel}
     </span>
