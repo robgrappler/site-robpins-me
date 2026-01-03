@@ -28,7 +28,10 @@ const primaryLink = links.find((link) => link.primary) ?? links[0];
       {/* Hero Cell (Primary Link) */}
       {
         primaryLink && (
-          <div class="col-span-1 md:col-span-2 md:row-span-2 h-full">
+          <div
+            class="col-span-1 md:col-span-2 md:row-span-2 h-full animate-fade-in-up"
+            style="animation-delay: 0ms"
+          >
             <LinkCard item={primaryLink} featured={true} />
           </div>
         )
@@ -38,13 +41,46 @@ const primaryLink = links.find((link) => link.primary) ?? links[0];
       {
         links
           .filter((l) => l !== primaryLink)
-          .map((item) => (
-            <div class="col-span-1 h-full">
+          .map((item, index) => (
+            <div
+              class="col-span-1 h-full animate-fade-in-up"
+              style={`animation-delay: ${(index + 1) * 100}ms`}
+            >
               <LinkCard item={item} />
             </div>
           ))
       }
     </main>
+
+    {/* Mobile Sticky FAB */}
+    {
+      primaryLink && (
+        <div
+          class="fixed bottom-6 right-6 z-50 md:hidden animate-fade-in-up"
+          style="animation-delay: 1000ms"
+        >
+          <a
+            href={primaryLink.href}
+            class="btn btn-circle btn-lg btn-primary shadow-2xl border-none"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M13 7l5 5m0 0l-5 5m5-5H6"
+              />
+            </svg>
+          </a>
+        </div>
+      )
+    }
 
     <section class="mt-16 flex flex-col gap-8">
       <SectionHeading
