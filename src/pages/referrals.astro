@@ -1,0 +1,80 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Referrals — Deals & Codes">
+  <div class="mx-auto min-h-screen max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+    <div class="mb-8">
+      <a class="btn btn-sm btn-ghost" href="/">Back to Matroom</a>
+    </div>
+
+    <header class="mb-12 flex flex-col gap-2">
+      <span
+        class="font-sans text-xs font-bold uppercase tracking-[0.2em] text-sub-grey"
+      >
+        Digital Matroom v2.0
+      </span>
+      <h1
+        class="font-b612 text-5xl font-black tracking-tight text-white sm:text-7xl"
+      >
+        Referrals
+      </h1>
+      <p class="max-w-xl font-sans text-lg text-sub-paper/80">
+        Discounts and tools I trust. Updated as partnerships come and go.
+      </p>
+    </header>
+
+    <main class="flex flex-col gap-6">
+      <section class="rounded-2xl border border-main-surface p-6">
+        <p class="font-b612 text-lg uppercase tracking-wide text-white">
+          Work in progress — get notifications
+        </p>
+        <p class="mt-3 text-sm text-sub-paper/80">
+          New referral partners are being curated now.
+        </p>
+      </section>
+
+      <section class="grid grid-cols-1 gap-4 md:grid-cols-3">
+        <div class="rounded-2xl border border-main-surface bg-main-surface/40 p-6">
+          <h2 class="font-b612 text-xl uppercase tracking-wide text-white">
+            Training Platform
+          </h2>
+          <p class="mt-2 text-sm text-sub-paper/80">
+            Clean library of instructionals and match study tools.
+          </p>
+          <a class="mt-4 inline-flex btn btn-sm btn-outline btn-ghost" href="#">
+            GET DEAL
+          </a>
+        </div>
+
+        <div class="rounded-2xl border border-main-surface bg-main-surface/40 p-6">
+          <h2 class="font-b612 text-xl uppercase tracking-wide text-white">
+            Gear Partner
+          </h2>
+          <p class="mt-2 text-sm text-sub-paper/80">
+            Reliable gear drops and essentials for hard rounds.
+          </p>
+          <a class="mt-4 inline-flex btn btn-sm btn-outline btn-ghost" href="#">
+            GET DEAL
+          </a>
+        </div>
+
+        <div class="rounded-2xl border border-main-surface bg-main-surface/40 p-6">
+          <h2 class="font-b612 text-xl uppercase tracking-wide text-white">
+            Software Stack
+          </h2>
+          <p class="mt-2 text-sm text-sub-paper/80">
+            Workflow tools that keep the archive moving.
+          </p>
+          <a class="mt-4 inline-flex btn btn-sm btn-outline btn-ghost" href="#">
+            GET DEAL
+          </a>
+        </div>
+      </section>
+
+      <p class="text-xs uppercase tracking-[0.2em] text-sub-grey">
+        This page stays clean. No weird stuff. Just useful deals.
+      </p>
+    </main>
+  </div>
+</BaseLayout>

@@ -1,0 +1,62 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Match Archive — Database">
+  <div class="mx-auto min-h-screen max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+    <div class="mb-8">
+      <a class="btn btn-sm btn-ghost" href="/">Back to Matroom</a>
+    </div>
+
+    <header class="mb-12 flex flex-col gap-2">
+      <span
+        class="font-sans text-xs font-bold uppercase tracking-[0.2em] text-sub-grey"
+      >
+        Digital Matroom v2.0
+      </span>
+      <h1
+        class="font-b612 text-5xl font-black tracking-tight text-white sm:text-7xl"
+      >
+        Match Archive
+      </h1>
+      <p class="max-w-xl font-sans text-lg text-sub-paper/80">
+        Searchable match notes &amp; references. Organized. Updated over time.
+      </p>
+    </header>
+
+    <main class="flex flex-col gap-6">
+      <div class="rounded-2xl border border-main-surface bg-main-surface/40 p-6">
+        <label
+          class="mb-2 block text-xs font-bold uppercase tracking-[0.2em] text-sub-grey"
+          for="archive-search"
+        >
+          Search
+        </label>
+        <input
+          id="archive-search"
+          type="text"
+          placeholder="Search the archive"
+          class="w-full rounded-xl border border-main-surface bg-ink-900/60 px-4 py-3 text-sm text-white placeholder:text-sub-grey focus:outline-none"
+        />
+      </div>
+
+      <section class="rounded-2xl border border-main-surface p-6">
+        <p class="font-b612 text-lg uppercase tracking-wide text-white">
+          Database UI is loading…
+        </p>
+        <p class="mt-3 text-sm text-sub-paper/80">
+          This page will become the searchable Match DB. For now, use the hub
+          links and featured entries while I finish wiring the system.
+        </p>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a class="btn btn-sm btn-outline btn-ghost" href="/">
+            BACK TO MATROOM
+          </a>
+          <a class="btn btn-sm bg-gold-500 text-ink-900 hover:bg-gold-400 border-none" href="#">
+            VIEW FEATURED
+          </a>
+        </div>
+      </section>
+    </main>
+  </div>
+</BaseLayout>
