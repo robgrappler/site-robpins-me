@@ -1,0 +1,43 @@
+---
+interface Props {
+    id?: string;
+    placeholder?: string;
+    submitLabel?: string;
+    compact?: boolean;
+}
+
+const {
+    id = "newsletter-form",
+    placeholder = "Enter your email",
+    submitLabel = "NOTIFY ME",
+    compact = false,
+} = Astro.props;
+---
+
+<form
+    name="newsletter"
+    method="POST"
+    data-netlify="true"
+    action="/success"
+    class:list={[
+        "flex w-full items-center gap-2",
+        compact ? "flex-col sm:flex-row" : "flex-row",
+    ]}
+>
+    <div class="relative w-full max-w-sm">
+        <input
+            type="email"
+            name="email"
+            id={id + "-email"}
+            placeholder={placeholder}
+            required
+            class="w-full rounded-full border border-white/10 bg-main-surface/60 px-4 py-2 text-sm text-white placeholder-sub-grey/60 focus:border-gold-500/50 focus:outline-none focus:ring-1 focus:ring-gold-500/50"
+        />
+    </div>
+    <button
+        type="submit"
+        class="btn btn-sm bg-gold-500 text-ink-900 hover:bg-gold-400 border-none transform transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-black/40 whitespace-nowrap"
+    >
+        {submitLabel}
+    </button>
+</form>
