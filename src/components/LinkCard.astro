@@ -12,14 +12,15 @@ const ctaLabel = item.cta ?? "OPEN";
 ---
 
 <a
-  class={`link-card card card-body flex flex-col justify-between h-full group transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] ${
+  class={`link-card card card-body flex flex-col justify-between h-full group transition-all duration-200 ${
     featured
       ? "bg-gradient-to-br from-ink-900 to-gold-900/20 border-gold-500/50 hover:border-gold-400/60 shadow-2xl relative overflow-hidden"
-      : "hover:border-slate-400/30"
+      : "secondary-card-sheen hover:border-gold-500/20"
   }`}
   href={item.href}
   target={isExternal ? "_blank" : undefined}
   rel={isExternal ? "noreferrer noopener" : undefined}
+  data-featured={featured}
 >
   {
     featured && (
@@ -29,7 +30,7 @@ const ctaLabel = item.cta ?? "OPEN";
 
   <div class="flex flex-col gap-2 z-10">
     <h3
-      class={`${featured ? "text-3xl sm:text-4xl" : "text-lg"} font-semibold text-white`}
+      class={`${featured ? "text-4xl sm:text-5xl" : "text-xl"} text-white uppercase tracking-wider`}
     >
       {item.title}
     </h3>
@@ -53,3 +54,45 @@ const ctaLabel = item.cta ?? "OPEN";
     </span>
   </div>
 </a>
+
+<script>
+  function initCards() {
+    const cards = document.querySelectorAll(".link-card");
+
+    cards.forEach((element) => {
+      const card = element as HTMLElement;
+      const isFeatured = card.dataset.featured === "true";
+
+      card.addEventListener("mousemove", (e: MouseEvent) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        // Tilt calculation
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+
+        // Featured cards get a much more subtle tilt (higher divisor)
+        const sensitivity = isFeatured ? 90 : 40;
+        const rotateX = (y - centerY) / sensitivity;
+        const rotateY = (centerX - x) / sensitivity;
+
+        card.style.setProperty("--x", `${x}px`);
+        card.style.setProperty("--y", `${y}px`);
+        card.style.setProperty("--rotateX", `${rotateX}deg`);
+        card.style.setProperty("--rotateY", `${rotateY}deg`);
+      });
+
+      card.addEventListener("mouseleave", () => {
+        card.style.setProperty("--rotateX", "0deg");
+        card.style.setProperty("--rotateY", "0deg");
+      });
+    });
+  }
+
+  // Initial call
+  initCards();
+
+  // Re-run on view transitions if necessary
+  document.addEventListener("astro:after-swap", initCards);
+</script>

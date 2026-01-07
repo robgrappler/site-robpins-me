@@ -1,125 +1,43 @@
 ---
-/* src/pages/index.astro - Rob Pins public landing page (YouTube-safe) */
 import BaseLayout from "../layouts/BaseLayout.astro";
-import LinkCard from "../components/LinkCard.astro";
-import SectionHeading from "../components/SectionHeading.astro";
-import { links, projects } from "../data/config";
+import BentoCard from "../components/BentoCard.astro";
+import { getCollection, type CollectionEntry } from "astro:content";
 
-const primaryLink = links.find((link) => link.primary) ?? links[0];
+// Fetch all links and sort by 'order'
+const links = (await getCollection("links")).sort(
+  (a: CollectionEntry<"links">, b: CollectionEntry<"links">) =>
+    a.data.order - b.data.order,
+);
 ---
 
-<BaseLayout>
-  <div class="mx-auto max-w-5xl px-6 py-12 sm:py-20">
-    <header class="mb-12 flex flex-col gap-4 text-center sm:text-left">
-      <span class="text-xs font-semibold tracking-[0.3em] text-slate-400"
-        >SITE</span
+<BaseLayout title="Robgrappler's | Digital Garden">
+  <div class="mx-auto min-h-screen max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+    <header class="mb-12 flex flex-col gap-2">
+      <span
+        class="font-sans text-xs font-bold uppercase tracking-[0.2em] text-sub-grey"
       >
-      <div class="flex flex-col gap-2">
-        <h1 class="text-4xl font-semibold text-white sm:text-6xl">Rob Pins</h1>
-        <p class="text-base text-slate-400 sm:text-xl max-w-2xl">
-          Official links, projects, and digital garden.
-        </p>
-      </div>
+        Digital Matroom v2.0
+      </span>
+      <h1
+        class="font-b612 text-5xl font-black tracking-tight text-white sm:text-7xl"
+      >
+        Robgrappler's
+      </h1>
+      <p class="max-w-xl font-sans text-lg text-sub-paper/80">
+        Grappling, Tech and Digital Archiving. (Work in Progress)
+      </p>
     </header>
 
-    <main
-      class="grid grid-cols-1 gap-4 md:grid-cols-3 md:grid-rows-2 auto-rows-fr"
-    >
-      {/* Hero Cell (Primary Link) */}
-      {
-        primaryLink && (
-          <div
-            class="col-span-1 md:col-span-2 md:row-span-2 h-full animate-fade-in-up"
-            style="animation-delay: 0ms"
-          >
-            <LinkCard item={primaryLink} featured={true} />
-          </div>
-        )
-      }
-
-      {/* Secondary Links */}
-      {
-        links
-          .filter((l) => l !== primaryLink)
-          .map((item, index) => (
-            <div
-              class="col-span-1 h-full animate-fade-in-up"
-              style={`animation-delay: ${(index + 1) * 100}ms`}
-            >
-              <LinkCard item={item} />
-            </div>
-          ))
-      }
+    <main class="grid grid-cols-1 gap-4 md:grid-cols-3 md:auto-rows-[180px]">
+      {links.map((link: CollectionEntry<"links">) => <BentoCard link={link} />)}
     </main>
 
-    {/* Mobile Sticky FAB */}
-    {
-      primaryLink && (
-        <div
-          class="fixed bottom-6 right-6 z-50 md:hidden animate-fade-in-up"
-          style="animation-delay: 1000ms"
-        >
-          <a
-            href={primaryLink.href}
-            class="btn btn-circle btn-lg bg-gold-500 text-ink-900 hover:bg-gold-400 shadow-2xl border-none"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M13 7l5 5m0 0l-5 5m5-5H6"
-              />
-            </svg>
-          </a>
-        </div>
-      )
-    }
-
-    <section class="mt-16 flex flex-col gap-8">
-      <SectionHeading
-        title="PROJECTS"
-        subtitle="Focused projects and long-term experiments."
-      />
-      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {
-          projects.map((project) => (
-            <div class="link-card card card-body flex flex-col gap-3 justify-between h-full">
-              <div class="flex flex-col gap-2">
-                <div class="flex items-center justify-between">
-                  <h3 class="text-lg font-semibold text-white">
-                    {project.title}
-                  </h3>
-                  {project.status && (
-                    <span class="badge badge-outline text-xs uppercase tracking-[0.2em] text-slate-400">
-                      {project.status}
-                    </span>
-                  )}
-                </div>
-                <p class="text-sm text-slate-400">{project.description}</p>
-              </div>
-              <a class="btn btn-sm btn-ghost self-start mt-2" href="/projects">
-                View Project
-              </a>
-            </div>
-          ))
-        }
-      </div>
-      <div>
-        <a class="btn btn-ghost" href="/projects">View all projects &rarr;</a>
-      </div>
-    </section>
-
     <footer
-      class="mt-20 border-t border-slate-800 pt-8 text-center text-xs text-slate-500 sm:text-left"
+      class="mt-20 border-t border-main-surface pt-8 text-center sm:text-left"
     >
-      <p>© {new Date().getFullYear()} Rob Pins. All rights reserved.</p>
+      <p class="font-sans text-xs text-sub-grey uppercase tracking-widest">
+        © {new Date().getFullYear()} Robgrappler. All rights reserved.
+      </p>
     </footer>
   </div>
 </BaseLayout>

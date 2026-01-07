@@ -1,0 +1,168 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+    link: CollectionEntry<"links">;
+}
+
+const { link } = Astro.props;
+const { data } = link;
+
+const sizeClasses: Record<string, string> = {
+    small: "col-span-1 md:col-span-1",
+    "medium-wide": "col-span-1 md:col-span-2",
+    "medium-tall": "col-span-1 md:row-span-2",
+    large: "col-span-1 md:col-span-2 md:row-span-2",
+    // 1. FULL WIDTH: Spans the entire container (Great for a footer or banner)
+    "full-width": "col-span-1 md:col-span-3",
+
+    // 2. TOWER: Very tall, thin card (Great for a vertical timeline or vertical text)
+    tower: "col-span-1 md:row-span-3",
+};
+
+// OPTION 3 PALETTE: All Dark, Distinction via Borders & Text
+const styleClasses: Record<string, string> = {
+    // Standard: Dark Purple, Subtle White Border. Hover = Gold Border.
+    default:
+        "bg-main-surface border-white/5 hover:border-main-gold/50 text-white",
+
+    // Emphasis: Dark Purple, GOLD Border permanently.
+    accent: "bg-main-surface border-main-gold/60 hover:border-main-gold text-white shadow-2xl shadow-main-gold/5",
+
+    // Hero: Dark Purple, Subtle Gradient.
+    hero: "bg-gradient-to-br from-main-surface to-[#2A1B3D] border-white/10 hover:border-main-gold/50 text-white",
+
+    // 1. GLASS: Frosted look, great for media or images underneath
+    glass: "bg-white/5 backdrop-blur-lg border-white/10 text-white hover:bg-white/10 hover:border-white/20",
+
+    // 2. TERMINAL: Tech-focused, monospaced vibe (Good for Github/Code)
+    terminal:
+        "bg-[#0a0a0a] border-sub-grey/20 text-main-gold font-mono hover:border-main-gold/50",
+
+    // 3. SOLID GOLD: High contrast, black text (Use sparingly for "Buy" buttons)
+    solid: "bg-main-gold border-main-gold text-black hover:bg-white hover:border-white",
+
+    // 4. MESH: A subtle top-right spotlight gradient (Good for 'Featured' content)
+    mesh: "bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-main-surface via-main-surface to-[#514d28] border-white/10 text-white",
+
+    // 5. MINIMAL: No background, just text. (Good for simple lists)
+    minimal:
+        "bg-transparent border-white/10 text-sub-grey hover:text-main-gold hover:border-main-gold/50 hover:translate-x-1",
+};
+---
+
+<a
+    href={data.url}
+    target={data.url.startsWith("http") ? "_blank" : "_self"}
+    rel={data.url.startsWith("http") ? "noopener noreferrer" : undefined}
+    class={`bento-card group relative flex flex-col justify-between overflow-hidden rounded-2xl border p-6 transition-all duration-500 hover:shadow-2xl hover:shadow-main-gold/10 gap-4 ${sizeClasses[data.bentoSize]} ${styleClasses[data.style]}`}
+>
+    {
+        data.image && (
+            <div class="absolute inset-0 z-0">
+                <img
+                    src={data.image}
+                    alt={data.label}
+                    class="h-full w-full object-cover opacity-40 transition-opacity duration-500 group-hover:opacity-20 mix-blend-overlay"
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-main-surface via-main-surface/80 to-transparent" />
+            </div>
+        )
+    }
+
+    <div class="relative z-10 flex flex-col gap-3">
+        <div class="flex items-center gap-3">
+            {
+                data.icon && (
+                    <div
+                        class={`flex h-8 w-8 items-center justify-center rounded-full bg-white/5 transition-colors group-hover:bg-main-gold/20`}
+                    >
+                        <span class="font-bebas text-sm tracking-widest opacity-80 text-white group-hover:text-main-gold">
+                            {data.icon.substring(0, 2)}
+                        </span>
+                    </div>
+                )
+            }
+            <h3
+                class="font-bebas text-3xl uppercase tracking-wide leading-none text-white"
+            >
+                {data.label}
+            </h3>
+        </div>
+
+        {
+            data.description && (
+                <p class="font-sans text-sm leading-relaxed max-w-[90%] text-sub-grey group-hover:text-white/90 transition-colors line-clamp-2">
+                    {data.description}
+                </p>
+            )
+        }
+    </div>
+
+    <div class="relative z-10 flex items-end justify-between">
+        <span
+            class={`text-[10px] font-bold uppercase tracking-[0.25em] transition-colors ${
+                data.style === "hero"
+                    ? "text-main-gold"
+                    : "text-sub-grey group-hover:text-main-gold"
+            }`}
+        >
+            {data.style === "hero" ? "START HERE" : "LINK"}
+        </span>
+
+        <div
+            class={`flex items-center gap-2 rounded px-3 py-1.5 text-xs font-bold uppercase tracking-wider transition-all border border-transparent 
+        ${data.style === "accent" ? "bg-main-gold text-main-bg hover:bg-white hover:text-black" : "bg-white/5 text-white group-hover:bg-white/10 group-hover:border-white/10"}`}
+        >
+            <span>Open</span>
+            <svg
+                class="h-3 w-3 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+            >
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M7 17L17 7M17 7H7M17 7V17"></path>
+            </svg>
+        </div>
+    </div>
+
+    <div
+        class="pointer-events-none absolute -inset-px opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+        style="background: radial-gradient(600px circle at var(--x) var(--y), rgba(255, 176, 0, 0.06), transparent 40%);"
+    >
+    </div>
+</a>
+
+<script>
+    function initCards() {
+        const cards = document.querySelectorAll(".bento-card");
+        cards.forEach((element) => {
+            const card = element as HTMLElement;
+            card.addEventListener("mousemove", (e: MouseEvent) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty("--x", `${x}px`);
+                card.style.setProperty("--y", `${y}px`);
+
+                // Tilt Logic
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = ((y - centerY) / 60) * -1;
+                const rotateY = (x - centerX) / 60;
+
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.005, 1.005, 1.005)`;
+            });
+            card.addEventListener("mouseleave", () => {
+                card.style.transform =
+                    "perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)";
+            });
+        });
+    }
+    initCards();
+    document.addEventListener("astro:after-swap", initCards);
+</script>

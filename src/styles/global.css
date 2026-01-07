@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=B612:ital,wght@0,400;0,700;1,400;1,700&family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -16,6 +16,7 @@ body {
   margin: 0;
   font-family: 'Inter', system-ui, sans-serif;
   background-color: #0b0c0f;
+  background-image: radial-gradient(circle at 50% -10%, #1c1e26 0%, #0b0c0f 100%);
   color: #f4f5f7;
   min-height: 100vh;
 }
@@ -40,6 +41,12 @@ a {
   text-decoration: none;
 }
 
+h1, h2, h3 {
+  font-family: 'B612', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0em;
+}
+
 :focus-visible {
   outline: 2px solid #9aa3b2;
   outline-offset: 3px;
@@ -51,6 +58,11 @@ a {
   border-radius: 16px;
   padding: 20px 22px;
   box-shadow: 0 24px 60px -40px rgba(0, 0, 0, 0.75);
+  position: relative;
+  overflow: hidden;
+  transform: perspective(1000px) rotateX(var(--rotateX, 0deg)) rotateY(var(--rotateY, 0deg));
+  transition: transform 0.15s ease-out, border-color 0.2s ease, box-shadow 0.2s ease;
+  transform-style: preserve-3d;
 }
 
 .link-card:hover {
@@ -93,4 +105,31 @@ a {
 
 .animate-fade-in-up {
   animation: fade-in-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+}
+
+/* Secondary Card Golden Enhancements */
+@keyframes metallic-sheen {
+  0% { transform: translateX(-150%) skewX(-25deg); opacity: 0; }
+  10% { opacity: 0.3; }
+  20% { opacity: 0; transform: translateX(250%) skewX(-25deg); }
+  100% { opacity: 0; transform: translateX(250%) skewX(-25deg); }
+}
+
+.secondary-card-sheen {
+  position: relative;
+  overflow: hidden;
+}
+
+.secondary-card-sheen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(245, 194, 101, 0.08) 50%,
+    transparent
+  );
+  animation: metallic-sheen 12s infinite;
+  pointer-events: none;
 }
