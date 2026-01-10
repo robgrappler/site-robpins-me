@@ -30,11 +30,11 @@ const links = (await getCollection("links")).sort(
       </p>
     </header>
 
-    <main class="grid grid-cols-1 gap-4 md:grid-cols-3 md:auto-rows-[180px]">
+    <main class="grid grid-cols-2 gap-3 md:grid-cols-3 md:auto-rows-[180px]">
       <!-- FEATURED MATCH CARD -->
       <a
         href={featuredMatch.href}
-        class="observer-fade-in-up opacity-0 bento-card group relative col-span-1 flex h-full flex-col justify-between overflow-hidden rounded-3xl bg-[#1a1a1a] p-6 text-left transition-all duration-300 hover:scale-[1.01] hover:shadow-2xl hover:shadow-[#F5C265]/10 focus:outline-none focus:ring-4 focus:ring-[#F5C265]/50 md:col-span-2 md:row-span-2"
+        class="observer-fade-in-up opacity-0 bento-card group relative col-span-2 flex h-full flex-col justify-between overflow-hidden rounded-3xl bg-[#1a1a1a] p-6 text-left transition-all duration-300 hover:scale-[1.01] hover:shadow-2xl hover:shadow-[#F5C265]/10 focus:outline-none focus:ring-4 focus:ring-[#F5C265]/50 md:col-span-2 md:row-span-2"
         aria-label={`Watch featured match: ${featuredMatch.title}`}
         data-tilt="true"
       >
