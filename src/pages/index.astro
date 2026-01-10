@@ -166,10 +166,9 @@ const links = (await getCollection("links")).sort(
       entries.forEach((entry, index) => {
         if (entry.isIntersecting) {
           const target = entry.target as HTMLElement;
-          // Faster stagger: 50ms instead of 100ms
-          // Cap the index at 5 to prevent huge delays on large screens/fast scrolls
-          const delay = Math.min(index, 5) * 50;
-          target.style.animationDelay = `${delay}ms`;
+          // Reverted to original speed (100ms) as requested
+          // This creates a more distinct "domino" effect
+          target.style.animationDelay = `${index * 100}ms`;
 
           // CRITICAL FIX: Remove the initial opacity-0 utility class so it doesn't
           // conflict with hover transitions after the animation completes.
