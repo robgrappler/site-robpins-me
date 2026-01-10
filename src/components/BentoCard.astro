@@ -3,9 +3,10 @@ import type { CollectionEntry } from "astro:content";
 
 interface Props {
     link: CollectionEntry<"links">;
+    index?: number;
 }
 
-const { link } = Astro.props;
+const { link, index = 0 } = Astro.props;
 const { data } = link;
 
 const sizeClasses: Record<string, string> = {
@@ -49,13 +50,29 @@ const styleClasses: Record<string, string> = {
     minimal:
         "bg-transparent border-white/10 text-sub-grey hover:text-main-gold hover:border-main-gold/50 hover:translate-x-1",
 };
+
+const ctaMap: Record<string, string> = {
+    "The Essentials": "Watch",
+    "Match DB": "Browse",
+    "The Breakdown": "Subscribe",
+    "Start Here": "Start",
+    "X / Twitter": "Follow",
+    Instagram: "Follow",
+    "The Vault": "Open",
+    Referrals: "Get",
+    "My Setup": "View",
+};
+
+const ctaText = ctaMap[data.label] || "Open";
 ---
 
 <a
     href={data.url}
     target={data.url.startsWith("http") ? "_blank" : "_self"}
     rel={data.url.startsWith("http") ? "noopener noreferrer" : undefined}
-    class={`bento-card group relative flex flex-col justify-between overflow-hidden rounded-2xl border p-6 transition-all duration-500 hover:shadow-2xl hover:shadow-main-gold/10 gap-4 ${sizeClasses[data.bentoSize]} ${styleClasses[data.style]}`}
+    data-tilt={data.label === "Start Here" ? "true" : undefined}
+    style={`animation-fill-mode: forwards; animation-delay: ${index * 100}ms; opacity: 0;`}
+    class={`animate-fade-in-up bento-card group relative flex flex-col justify-between overflow-hidden rounded-2xl border p-6 transition-all duration-500 hover:shadow-2xl hover:shadow-main-gold/10 gap-4 ${sizeClasses[data.bentoSize]} ${styleClasses[data.style]}`}
 >
     {
         data.image && (
@@ -107,14 +124,24 @@ const styleClasses: Record<string, string> = {
                     : "text-sub-grey group-hover:text-main-gold"
             }`}
         >
-            {data.style === "hero" ? "START HERE" : "LINK"}
+            {
+                data.style === "hero"
+                    ? "START HERE"
+                    : ctaText === "Follow"
+                      ? "SOCIAL"
+                      : "LINK"
+            }
         </span>
 
         <div
-            class={`flex items-center gap-2 rounded px-3 py-1.5 text-xs font-bold uppercase tracking-wider transition-all border border-transparent 
-        ${data.style === "accent" ? "bg-main-gold text-main-bg hover:bg-white hover:text-black" : "bg-white/5 text-white group-hover:bg-white/10 group-hover:border-white/10"}`}
+            class={`flex items-center gap-2 rounded px-3 py-1.5 text-xs font-bold uppercase tracking-wider transition-all duration-300 border border-transparent 
+        ${
+            data.style === "accent"
+                ? "bg-main-gold text-main-bg opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 hover:bg-white hover:text-black hover:!scale-110 hover:shadow-xl"
+                : "bg-white/5 text-white opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 group-hover:bg-white/10 group-hover:border-white/10 hover:!scale-110 hover:shadow-xl"
+        }`}
         >
-            <span>Open</span>
+            <span>{ctaText}</span>
             <svg
                 class="h-3 w-3 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
                 fill="none"
@@ -142,6 +169,8 @@ const styleClasses: Record<string, string> = {
         const cards = document.querySelectorAll(".bento-card");
         cards.forEach((element) => {
             const card = element as HTMLElement;
+
+            // Mouse tracking for spotlight effect (keep this for all cards)
             card.addEventListener("mousemove", (e: MouseEvent) => {
                 const rect = card.getBoundingClientRect();
                 const x = e.clientX - rect.left;
@@ -149,17 +178,22 @@ const styleClasses: Record<string, string> = {
                 card.style.setProperty("--x", `${x}px`);
                 card.style.setProperty("--y", `${y}px`);
 
-                // Tilt Logic
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-                const rotateX = ((y - centerY) / 60) * -1;
-                const rotateY = (x - centerX) / 60;
+                // Tilt Logic - ONLY for cards with data-tilt="true"
+                if (card.dataset.tilt === "true") {
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    const rotateX = ((y - centerY) / 60) * -1;
+                    const rotateY = (x - centerX) / 60;
 
-                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.005, 1.005, 1.005)`;
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.005, 1.005, 1.005)`;
+                }
             });
+
             card.addEventListener("mouseleave", () => {
-                card.style.transform =
-                    "perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)";
+                if (card.dataset.tilt === "true") {
+                    card.style.transform =
+                        "perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)";
+                }
             });
         });
     }

@@ -3,6 +3,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import BentoCard from "../components/BentoCard.astro";
 import { getCollection, type CollectionEntry } from "astro:content";
+import { featuredMatch } from "../data/featured-match";
 
 // Fetch all links and sort by 'order'
 const links = (await getCollection("links")).sort(
@@ -30,7 +31,101 @@ const links = (await getCollection("links")).sort(
     </header>
 
     <main class="grid grid-cols-1 gap-4 md:grid-cols-3 md:auto-rows-[180px]">
-      {links.map((link: CollectionEntry<"links">) => <BentoCard link={link} />)}
+      <!-- FEATURED MATCH CARD -->
+      <a
+        href={featuredMatch.href}
+        style="animation-fill-mode: forwards; animation-delay: 0ms; opacity: 0;"
+        class="animate-fade-in-up bento-card group relative col-span-1 flex h-full flex-col justify-between overflow-hidden rounded-3xl bg-[#1a1a1a] p-6 text-left transition-all duration-300 hover:scale-[1.01] hover:shadow-2xl hover:shadow-[#F5C265]/10 focus:outline-none focus:ring-4 focus:ring-[#F5C265]/50 md:col-span-2 md:row-span-2"
+        aria-label={`Watch featured match: ${featuredMatch.title}`}
+        data-tilt="true"
+      >
+        <!-- Background Image/Gradient -->
+        <div class="absolute inset-0 z-0">
+          <img
+            src={featuredMatch.thumb}
+            alt=""
+            class="h-full w-full object-cover opacity-95 transition-transform duration-700 group-hover:scale-105 group-hover:opacity-80"
+          />
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"
+          >
+          </div>
+        </div>
+
+        <!-- Content Content -->
+        <div class="relative z-10 flex h-full flex-col justify-between">
+          <div class="flex items-start justify-between">
+            <span
+              class="inline-block rounded-full border border-[#F5C265]/30 bg-[#F5C265]/10 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-[#F5C265] backdrop-blur-md"
+            >
+              {featuredMatch.tag}
+            </span>
+          </div>
+
+          <div class="space-y-4">
+            <div>
+              <h2
+                class="font-bebas text-4xl leading-none text-white transition-colors group-hover:text-[#F5C265] sm:text-5xl md:text-6xl"
+              >
+                {featuredMatch.title}
+              </h2>
+              <p class="mt-2 font-sans text-sm font-medium text-gray-300">
+                {featuredMatch.subtitle}
+              </p>
+            </div>
+
+            <div
+              class="flex items-center gap-4 text-xs font-bold text-gray-400"
+            >
+              <div class="flex items-center gap-1.5">
+                <svg
+                  class="h-4 w-4 text-[#F5C265]"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <span>{featuredMatch.duration}</span>
+              </div>
+              <span class="text-gray-600">•</span>
+              <div class="flex items-center gap-1.5">
+                <svg
+                  class="h-4 w-4 text-[#F5C265]"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                  ></path>
+                </svg>
+                <span>{featuredMatch.price}</span>
+              </div>
+            </div>
+
+            <div
+              class="w-fit rounded-lg bg-[#F5C265] px-5 py-2.5 font-sans text-xs font-black uppercase tracking-widest text-[#0b0b0e] transition-all hover:bg-white hover:text-black hover:shadow-[0_0_20px_rgba(245,194,101,0.4)] hover:scale-105 group-focus:ring-2 group-focus:ring-[#F5C265] group-focus:ring-offset-2 group-focus:ring-offset-black"
+            >
+              Watch Now ↗
+            </div>
+          </div>
+        </div>
+      </a>
+
+      {links.map((link, i) => <BentoCard link={link} index={i + 1} />)}
     </main>
 
     <footer
@@ -42,3 +137,20 @@ const links = (await getCollection("links")).sort(
     </footer>
   </div>
 </BaseLayout>
+
+<style>
+  @keyframes fade-in-up {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in-up {
+    animation: fade-in-up 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  }
+</style>
