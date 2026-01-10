@@ -158,7 +158,7 @@ const links = (await getCollection("links")).sort(
   function initObserver() {
     const observerOptions = {
       root: null,
-      rootMargin: "0px",
+      rootMargin: "50px", // Trigger slightly before it enters the viewport
       threshold: 0.1,
     };
 
@@ -166,9 +166,10 @@ const links = (await getCollection("links")).sort(
       entries.forEach((entry, index) => {
         if (entry.isIntersecting) {
           const target = entry.target as HTMLElement;
-          // Add a small staggered delay based on the index of the intersected batch
-          // (This works well if multiple elements come into view at once)
-          target.style.animationDelay = `${index * 100}ms`;
+          // Faster stagger: 50ms instead of 100ms
+          // Cap the index at 5 to prevent huge delays on large screens/fast scrolls
+          const delay = Math.min(index, 5) * 50;
+          target.style.animationDelay = `${delay}ms`;
           target.classList.add("animate-fade-in-up");
           observer.unobserve(target);
         }
