@@ -71,8 +71,7 @@ const ctaText = ctaMap[data.label] || "Open";
     target={data.url.startsWith("http") ? "_blank" : "_self"}
     rel={data.url.startsWith("http") ? "noopener noreferrer" : undefined}
     data-tilt={data.label === "Start Here" ? "true" : undefined}
-    style={`animation-fill-mode: forwards; animation-delay: ${index * 100}ms; opacity: 0;`}
-    class={`animate-fade-in-up bento-card group relative flex flex-col justify-between overflow-hidden rounded-2xl border p-6 transition-all duration-500 hover:shadow-2xl hover:shadow-main-gold/10 gap-4 ${sizeClasses[data.bentoSize]} ${styleClasses[data.style]}`}
+    class={`observer-fade-in-up opacity-0 bento-card group relative flex flex-col justify-between overflow-hidden rounded-2xl border p-6 transition-all duration-500 hover:shadow-2xl hover:shadow-main-gold/10 gap-4 ${sizeClasses[data.bentoSize]} ${styleClasses[data.style]}`}
 >
     {
         data.image && (

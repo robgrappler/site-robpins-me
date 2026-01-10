@@ -34,8 +34,7 @@ const links = (await getCollection("links")).sort(
       <!-- FEATURED MATCH CARD -->
       <a
         href={featuredMatch.href}
-        style="animation-fill-mode: forwards; animation-delay: 0ms; opacity: 0;"
-        class="animate-fade-in-up bento-card group relative col-span-1 flex h-full flex-col justify-between overflow-hidden rounded-3xl bg-[#1a1a1a] p-6 text-left transition-all duration-300 hover:scale-[1.01] hover:shadow-2xl hover:shadow-[#F5C265]/10 focus:outline-none focus:ring-4 focus:ring-[#F5C265]/50 md:col-span-2 md:row-span-2"
+        class="observer-fade-in-up opacity-0 bento-card group relative col-span-1 flex h-full flex-col justify-between overflow-hidden rounded-3xl bg-[#1a1a1a] p-6 text-left transition-all duration-300 hover:scale-[1.01] hover:shadow-2xl hover:shadow-[#F5C265]/10 focus:outline-none focus:ring-4 focus:ring-[#F5C265]/50 md:col-span-2 md:row-span-2"
         aria-label={`Watch featured match: ${featuredMatch.title}`}
         data-tilt="true"
       >
@@ -125,7 +124,7 @@ const links = (await getCollection("links")).sort(
         </div>
       </a>
 
-      {links.map((link, i) => <BentoCard link={link} index={i + 1} />)}
+      {links.map((link) => <BentoCard link={link} />)}
     </main>
 
     <footer
@@ -154,3 +153,36 @@ const links = (await getCollection("links")).sort(
     animation: fade-in-up 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
   }
 </style>
+
+<script>
+  function initObserver() {
+    const observerOptions = {
+      root: null,
+      rootMargin: "0px",
+      threshold: 0.1,
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+          const target = entry.target as HTMLElement;
+          // Add a small staggered delay based on the index of the intersected batch
+          // (This works well if multiple elements come into view at once)
+          target.style.animationDelay = `${index * 100}ms`;
+          target.classList.add("animate-fade-in-up");
+          observer.unobserve(target);
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll(".observer-fade-in-up").forEach((el) => {
+      observer.observe(el);
+    });
+  }
+
+  // Run on initial load
+  initObserver();
+
+  // Run on view transitions (Astro)
+  document.addEventListener("astro:after-swap", initObserver);
+</script>
