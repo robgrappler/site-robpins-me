@@ -45,8 +45,9 @@ const links = (await getCollection("links")).sort(
         <div class="absolute inset-0 z-0">
           <img
             src={featuredMatch.thumb}
+            data-thumbs={JSON.stringify(featuredMatch.thumbs || [])}
             alt=""
-            class="h-full w-full object-cover opacity-95 motion-safe:transition-transform motion-safe:duration-700 motion-safe:group-hover:scale-105 group-hover:opacity-80"
+            class="featured-thumb h-full w-full object-cover opacity-95 motion-safe:transition-transform motion-safe:duration-700 motion-safe:group-hover:scale-105 group-hover:opacity-80"
           />
           <div
             class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"
@@ -56,6 +57,12 @@ const links = (await getCollection("links")).sort(
 
         <!-- Content Content -->
         <div class="relative z-10 flex h-full flex-col justify-between">
+          <!-- Button positioned absolutely to bottom right -->
+          <span
+            class="absolute bottom-6 right-6 z-20 w-fit rounded-lg bg-[#F5C265] px-5 py-2.5 font-sans text-xs font-black uppercase tracking-widest text-[#0b0b0e] motion-safe:transition-all hover:bg-white hover:text-black hover:shadow-[0_0_20px_rgba(245,194,101,0.4)] motion-safe:hover:scale-105 group-focus-visible:ring-2 group-focus-visible:ring-main-gold/70 group-focus-visible:ring-offset-2 group-focus-visible:ring-offset-main-bg"
+          >
+            Watch Now ↗
+          </span>
           <div class="flex items-start justify-between">
             <span
               class="inline-block rounded-full border border-[#F5C265]/30 bg-[#F5C265]/10 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-[#F5C265] backdrop-blur-md"
@@ -117,12 +124,6 @@ const links = (await getCollection("links")).sort(
                 <span>{featuredMatch.price}</span>
               </div>
             </div>
-
-            <span
-              class="w-fit rounded-lg bg-[#F5C265] px-5 py-2.5 font-sans text-xs font-black uppercase tracking-widest text-[#0b0b0e] motion-safe:transition-all hover:bg-white hover:text-black hover:shadow-[0_0_20px_rgba(245,194,101,0.4)] motion-safe:hover:scale-105 group-focus-visible:ring-2 group-focus-visible:ring-main-gold/70 group-focus-visible:ring-offset-2 group-focus-visible:ring-offset-main-bg"
-            >
-              Watch Now ↗
-            </span>
           </div>
         </div>
       </TileLink>
@@ -158,6 +159,31 @@ const links = (await getCollection("links")).sort(
 </style>
 
 <script>
+  function initRandomThumb() {
+    const img = document.querySelector(".featured-thumb") as HTMLImageElement;
+    if (!img) return;
+
+    const dataThumbs = img.getAttribute("data-thumbs");
+    if (!dataThumbs) return;
+
+    try {
+      const thumbs = JSON.parse(dataThumbs);
+      if (Array.isArray(thumbs) && thumbs.length > 0) {
+        // Simple true random selection from the full pool.
+        // This means it MIGHT pick the same image as the default/current one,
+        // which is statistically correct behavior for "random on load".
+        // Excluding the current one caused the default image (rooki4) to be permanently banned.
+        const randomThumb = thumbs[Math.floor(Math.random() * thumbs.length)];
+
+        if (randomThumb && randomThumb !== img.getAttribute("src")) {
+          img.src = randomThumb;
+        }
+      }
+    } catch (e) {
+      console.error("Failed to parse thumbs", e);
+    }
+  }
+
   function initObserver() {
     const observerOptions = {
       root: null,
@@ -201,7 +227,11 @@ const links = (await getCollection("links")).sort(
 
   // Run on initial load
   initObserver();
+  initRandomThumb();
 
   // Run on view transitions (Astro)
-  document.addEventListener("astro:after-swap", initObserver);
+  document.addEventListener("astro:after-swap", () => {
+    initObserver();
+    initRandomThumb();
+  });
 </script>
