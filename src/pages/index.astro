@@ -2,6 +2,7 @@
 // DIRTY HUB
 import BaseLayout from "../layouts/BaseLayout.astro";
 import BentoCard from "../components/BentoCard.astro";
+import TileLink from "../components/TileLink.astro";
 import { getCollection, type CollectionEntry } from "astro:content";
 import { featuredMatch } from "../data/featured-match";
 
@@ -34,11 +35,11 @@ const links = (await getCollection("links")).sort(
       class="grid grid-cols-2 gap-3 md:grid-cols-3 md:auto-rows-[190px] md:gap-4 lg:auto-rows-[210px]"
     >
       <!-- FEATURED MATCH CARD -->
-      <a
+      <TileLink
         href={featuredMatch.href}
-        class="observer-fade-in-up opacity-0 bento-card group relative col-span-2 flex h-full flex-col justify-between overflow-hidden rounded-3xl bg-[#1a1a1a] p-6 text-left transition-all duration-300 hover:scale-[1.01] hover:shadow-2xl hover:shadow-[#F5C265]/10 focus:outline-none focus:ring-4 focus:ring-[#F5C265]/50 md:col-span-2 md:row-span-2"
+        class="col-span-2 h-full rounded-3xl bg-[#1a1a1a] duration-300 hover:scale-[1.01] hover:shadow-[#F5C265]/10 focus:outline-none focus:ring-4 focus:ring-[#F5C265]/50 md:col-span-2 md:row-span-2"
         aria-label={`Watch featured match: ${featuredMatch.title}`}
-        data-tilt="true"
+        tilt
       >
         <!-- Background Image/Gradient -->
         <div class="absolute inset-0 z-0">
@@ -124,7 +125,7 @@ const links = (await getCollection("links")).sort(
             </div>
           </div>
         </div>
-      </a>
+      </TileLink>
 
       {links.map((link) => <BentoCard link={link} />)}
     </main>
