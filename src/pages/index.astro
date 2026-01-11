@@ -37,7 +37,7 @@ const links = (await getCollection("links")).sort(
       <!-- FEATURED MATCH CARD -->
       <TileLink
         href={featuredMatch.href}
-        class="col-span-2 h-full rounded-3xl bg-[#1a1a1a] duration-300 hover:scale-[1.01] hover:shadow-[#F5C265]/10 focus:outline-none focus:ring-4 focus:ring-[#F5C265]/50 md:col-span-2 md:row-span-2"
+        class="col-span-2 h-full rounded-3xl bg-[#1a1a1a] motion-safe:duration-300 motion-safe:hover:scale-[1.01] hover:shadow-[#F5C265]/10 md:col-span-2 md:row-span-2"
         aria-label={`Watch featured match: ${featuredMatch.title}`}
         tilt
       >
@@ -46,7 +46,7 @@ const links = (await getCollection("links")).sort(
           <img
             src={featuredMatch.thumb}
             alt=""
-            class="h-full w-full object-cover opacity-95 transition-transform duration-700 group-hover:scale-105 group-hover:opacity-80"
+            class="h-full w-full object-cover opacity-95 motion-safe:transition-transform motion-safe:duration-700 motion-safe:group-hover:scale-105 group-hover:opacity-80"
           />
           <div
             class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"
@@ -118,11 +118,11 @@ const links = (await getCollection("links")).sort(
               </div>
             </div>
 
-            <div
-              class="w-fit rounded-lg bg-[#F5C265] px-5 py-2.5 font-sans text-xs font-black uppercase tracking-widest text-[#0b0b0e] transition-all hover:bg-white hover:text-black hover:shadow-[0_0_20px_rgba(245,194,101,0.4)] hover:scale-105 group-focus:ring-2 group-focus:ring-[#F5C265] group-focus:ring-offset-2 group-focus:ring-offset-black"
+            <span
+              class="w-fit rounded-lg bg-[#F5C265] px-5 py-2.5 font-sans text-xs font-black uppercase tracking-widest text-[#0b0b0e] motion-safe:transition-all hover:bg-white hover:text-black hover:shadow-[0_0_20px_rgba(245,194,101,0.4)] motion-safe:hover:scale-105 group-focus-visible:ring-2 group-focus-visible:ring-main-gold/70 group-focus-visible:ring-offset-2 group-focus-visible:ring-offset-main-bg"
             >
               Watch Now ↗
-            </div>
+            </span>
           </div>
         </div>
       </TileLink>
@@ -164,6 +164,17 @@ const links = (await getCollection("links")).sort(
       rootMargin: "50px", // Trigger slightly before it enters the viewport
       threshold: 0.1,
     };
+
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    if (prefersReducedMotion) {
+      document.querySelectorAll(".observer-fade-in-up").forEach((el) => {
+        el.classList.remove("opacity-0");
+      });
+      return;
+    }
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry, index) => {

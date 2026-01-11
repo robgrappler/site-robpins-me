@@ -18,7 +18,7 @@ const {
 const target = external ? "_blank" : "_self";
 const rel = external ? "noopener noreferrer" : undefined;
 const baseClasses =
-  "observer-fade-in-up opacity-0 bento-card group relative flex flex-col justify-between overflow-hidden p-6 text-left transition-all hover:shadow-2xl";
+  "observer-fade-in-up opacity-0 bento-card group relative flex flex-col justify-between overflow-hidden p-6 text-left motion-safe:transition-all hover:shadow-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-main-gold/70 focus-visible:ring-offset-2 focus-visible:ring-offset-main-bg";
 ---
 
 <a
