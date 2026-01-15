@@ -4,6 +4,6 @@ description: "Sesiones en vivo, códigos promocionales y pensamientos tecnológi
 url: "https://x.com/robgrappler"
 order: 5
 bentoSize: "small"
-style: "default"
+style: "glass"
 icon: "tw"
 ---
