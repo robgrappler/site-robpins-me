@@ -1,0 +1,43 @@
+---
+import { languages } from "../i18n/ui";
+
+interface Props {
+    currentLang?: "en" | "es";
+}
+
+const { currentLang = "en" } = Astro.props;
+
+const flags: Record<string, string> = {
+    es: "🇲🇽",
+    en: "🇺🇸",
+};
+
+const orderBy = ["es", "en"] as const;
+---
+
+<div class="flex items-center gap-3 text-2xl leading-none">
+    {
+        orderBy.map((lang) => {
+            const label = languages[lang];
+            const isCurrent = lang === currentLang;
+            const href = lang === "en" ? "/" : `/${lang}/`;
+
+            return (
+                <a
+                    href={href}
+                    class:list={[
+                        "transition-all duration-300 hover:scale-110",
+                        isCurrent
+                            ? "opacity-100 grayscale-0 drop-shadow-[0_0_8px_rgba(245,194,101,0.5)]"
+                            : "opacity-40 grayscale hover:opacity-100 hover:grayscale-0",
+                    ]}
+                    onclick={`localStorage.setItem('site-lang', '${lang}')`}
+                    aria-label={label}
+                    title={label}
+                >
+                    {flags[lang]}
+                </a>
+            );
+        })
+    }
+</div>

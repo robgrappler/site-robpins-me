@@ -5,15 +5,28 @@ import BentoCard from "../components/BentoCard.astro";
 import TileLink from "../components/TileLink.astro";
 import { getCollection, type CollectionEntry } from "astro:content";
 import { featuredMatch } from "../data/featured-match";
+import LanguagePicker from "../components/LanguagePicker.astro";
+import { ui, defaultLang, useTranslations } from "../i18n/ui";
+
+const t = useTranslations(defaultLang);
 
 // Fetch all links and sort by 'order'
-const links = (await getCollection("links")).sort(
-  (a: CollectionEntry<"links">, b: CollectionEntry<"links">) =>
-    a.data.order - b.data.order,
-);
+const links = (await getCollection("links"))
+  .filter((entry) => entry.slug.startsWith("en/"))
+  .sort(
+    (a: CollectionEntry<"links">, b: CollectionEntry<"links">) =>
+      a.data.order - b.data.order,
+  );
 ---
 
 <BaseLayout title="Robgrappler's | Digital Garden">
+  <script is:inline>
+    const userLang = navigator.language || navigator.userLanguage;
+    const savedLang = localStorage.getItem("site-lang");
+    if (!savedLang && userLang.startsWith("es")) {
+      window.location.href = "/es/";
+    }
+  </script>
   <div class="mx-auto min-h-screen max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
     <header class="mb-12 flex flex-col gap-2">
       <span
@@ -21,13 +34,16 @@ const links = (await getCollection("links")).sort(
       >
         Digital Matroom v2.0
       </span>
-      <h1
-        class="font-b612 text-5xl font-black tracking-tight text-white sm:text-7xl"
-      >
-        Robgrappler's
-      </h1>
+      <div class="flex items-start justify-between">
+        <h1
+          class="font-b612 text-5xl font-black tracking-tight text-white sm:text-7xl"
+        >
+          {t("hero.title")}
+        </h1>
+        <LanguagePicker currentLang="en" />
+      </div>
       <p class="max-w-xl font-sans text-lg text-sub-paper/80">
-        Grappling, Tech and Digital Archiving. (Work in Progress)
+        {t("hero.subtitle")}
       </p>
     </header>
 
