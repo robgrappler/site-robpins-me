@@ -1,0 +1,75 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+import "robpins-match-db/styles.css";
+
+export async function getStaticPaths() {
+  const matches = await getCollection("matches");
+  return matches.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { data } = entry;
+const { Content } = await entry.render();
+const displayDate = data.uploadDate
+  ? new Date(data.uploadDate).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "2-digit",
+    })
+  : "";
+const thumbStyle = data.thumb
+  ? `--match-db-thumb: url('${data.thumb}')`
+  : undefined;
+---
+
+<BaseLayout
+  title={`${data.titleEn} — Match DB`}
+  description={data.descEn}
+>
+  <div class="match-db-page">
+    <div class="match-db-shell">
+      <a class="match-db-back" href="/database">Back to Database</a>
+
+      <div class="match-db-detail">
+        <section class="match-db-detail-card">
+          <div class="match-db-thumb match-db-thumb-large" style={thumbStyle} />
+          <div class="match-db-detail-body">
+            <span class="match-db-eyebrow">{data.source}</span>
+            <h1 class="match-db-title">{data.titleEn}</h1>
+            <p class="match-db-subtitle">{data.descEn}</p>
+            <div class="match-db-meta">
+              <span>{displayDate}</span>
+              <span>{data.duration}</span>
+            </div>
+            <div class="match-db-detail-actions">
+              {data.href && (
+                <a
+                  class="match-db-button primary"
+                  href={data.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  View Source
+                </a>
+              )}
+              <a class="match-db-button" href="/database">Back to DB</a>
+            </div>
+          </div>
+        </section>
+
+        <section class="match-db-detail-card">
+          <div class="match-db-detail-body">
+            <h2 class="match-db-title-text">Notes</h2>
+            <div class="match-db-desc">
+              <Content />
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

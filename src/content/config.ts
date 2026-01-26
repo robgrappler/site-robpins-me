@@ -1,4 +1,5 @@
 import { defineCollection, z } from 'astro:content';
+import { createMatchSchema } from "robpins-match-db/schema";
 
 const linksCollection = defineCollection({
     type: 'content',
@@ -14,6 +15,12 @@ const linksCollection = defineCollection({
     }),
 });
 
+const matchesCollection = defineCollection({
+    type: "content",
+    schema: createMatchSchema(z),
+});
+
 export const collections = {
     'links': linksCollection,
+    'matches': matchesCollection,
 };

@@ -1,9 +1,8 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import NewsletterForm from "../components/NewsletterForm.astro";
 ---
 
-<BaseLayout title="Referrals — Deals & Codes">
+<BaseLayout title="Deals & Gear">
   <div class="mx-auto min-h-screen max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
     <div class="mb-8">
       <a class="btn btn-sm btn-ghost" href="/">Back to Matroom</a>
@@ -18,7 +17,7 @@ import NewsletterForm from "../components/NewsletterForm.astro";
       <h1
         class="font-b612 text-5xl font-black tracking-tight text-white sm:text-7xl"
       >
-        Referrals
+        Deals & Gear
       </h1>
       <p class="max-w-xl font-sans text-lg text-sub-paper/80">
         Discounts and tools I trust. Updated as partnerships come and go.
@@ -26,18 +25,6 @@ import NewsletterForm from "../components/NewsletterForm.astro";
     </header>
 
     <main class="flex flex-col gap-6">
-      <section class="rounded-2xl border border-main-surface p-6">
-        <p class="font-b612 text-lg uppercase tracking-wide text-white">
-          Work in progress — get notifications
-        </p>
-        <p class="mt-3 mb-6 text-sm text-sub-paper/80">
-          New referral partners are being curated now.
-        </p>
-        <div class="max-w-md">
-          <NewsletterForm id="referrals-form" submitLabel="NOTIFY ME" />
-        </div>
-      </section>
-
       <section class="grid grid-cols-1 gap-4 md:grid-cols-3">
         <div
           class="rounded-2xl border border-white/10 bg-main-surface/40 p-6 transform transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-black/50 hover:border-[#F5C265]/20"

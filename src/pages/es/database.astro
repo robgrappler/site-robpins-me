@@ -1,0 +1,63 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+import MatchCard from "robpins-match-db/components/MatchCard.astro";
+import MatchFilters from "robpins-match-db/components/MatchFilters.astro";
+import SearchBar from "robpins-match-db/components/SearchBar.astro";
+import "robpins-match-db/styles.css";
+import { useTranslations } from "../../i18n/ui";
+
+const t = useTranslations("es");
+
+const matches = await getCollection("matches");
+const sortedMatches = matches.sort((a, b) =>
+    b.data.uploadDate.localeCompare(a.data.uploadDate),
+);
+const sources = Array.from(
+    new Set(sortedMatches.map((entry) => entry.data.source).filter(Boolean)),
+).sort();
+const years = Array.from(
+    new Set(
+        sortedMatches
+            .map((entry) => entry.data.uploadDate?.slice(0, 4))
+            .filter(Boolean),
+    ),
+).sort((a, b) => b.localeCompare(a));
+---
+
+<BaseLayout title={t("db.title")} description={t("db.subtitle")} lang="es">
+    <div class="match-db-page">
+        <div class="match-db-shell">
+            <a class="match-db-back" href="/es/">{t("db.back")}</a>
+
+            <header class="match-db-header">
+                <span class="match-db-eyebrow">Digital Matroom</span>
+                <h1 class="match-db-title">{t("db.title")}</h1>
+                <p class="match-db-subtitle">
+                    {t("db.subtitle")}
+                </p>
+            </header>
+
+            <div class="match-db-controls">
+                <SearchBar placeholder={t("db.searchPlaceholder")} />
+                <MatchFilters
+                    sources={sources}
+                    years={years}
+                    total={sortedMatches.length}
+                />
+            </div>
+
+            <section class="match-db-grid">
+                {
+                    sortedMatches.map((entry) => (
+                        <MatchCard entry={entry} lang="es" />
+                    ))
+                }
+            </section>
+
+            <div class="match-db-empty" data-match-empty hidden>
+                {t("db.empty")}
+            </div>
+        </div>
+    </div>
+</BaseLayout>

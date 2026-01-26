@@ -1,7 +1,7 @@
 ---
 label: "Base de Datos"
 description: "Notas de combates y referencias buscables. Organizado. Actualizado."
-url: "/es/archive"
+url: "/es/database"
 order: 4
 bentoSize: "small"
 style: "terminal"
