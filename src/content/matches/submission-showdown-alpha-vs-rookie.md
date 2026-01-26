@@ -2,7 +2,7 @@
 id: "submission-showdown-alpha-vs-rookie"
 titleEn: "Submission Showdown: Alpha vs. Rookie"
 titleEs: "Submission Showdown: Alpha vs. Rookie"
-descEn: "= Full Uncut Wrestling Session ="
+descEn: "Grappling underground sin cortes con Rookie. Presión pesada, scrambles duros, taps limpios — sin guión, sin piedad."
 descEs: "Grappling underground sin cortes con Rookie. Presión pesada, scrambles duros, taps limpios — sin guión, sin piedad."
 thumb: "https://www.watchfighters.com/Content/profile/thumb/formywdf/custom-cover-32722.webp"
 href: "https://www.watchfighters.com/posts/submission_showdown_alpha_vs_rookie-formywdf"
@@ -11,6 +11,7 @@ duration: "48:25"
 durationSeconds: 2905
 opponent: "Rookie"
 source: "watchfighters"
+trailerUrl: "https://iframe.mediadelivery.net/embed/542292/c98f5574-f88a-4c3a-b01e-3d6d5a64c8c5"
 featured: true
 badge:
   variant: "gold"
@@ -24,6 +25,8 @@ tags:
     en: "Alpha Dominance"
     es: "Dominio Alfa"
 ---
+
+# Submission Showdown: Alpha vs. Rookie
 
 <!-- Auto-generated from watchfighters-matches.json -->
 

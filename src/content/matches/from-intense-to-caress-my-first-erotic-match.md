@@ -10,10 +10,13 @@ uploadDate: "2024-12-14"
 duration: "53:46"
 durationSeconds: 3226
 source: "watchfighters"
+trailerUrl: "https://iframe.mediadelivery.net/embed/542292/07dfa603-8595-46d3-aab5-0383b12dc1f9"
 ---
+
+# From Intense to Caress: My First Erotic Match 🔥
 
 <!-- Auto-generated from watchfighters-matches.json -->
 
 First time meeting the sexy hunk that is Dexter Glitch, and let’s be honest, this match could only go one way.
 
-**Watchfighters:** https://www.watchfighters.com/posts/from_intense_to_caress_my_first_erotic_match-thfefpll
+**Watchfighters:** <https://www.watchfighters.com/posts/from_intense_to_caress_my_first_erotic_match-thfefpll>
