@@ -23,7 +23,9 @@ tags:
   - class: "btn-striped-light border border-rg-red/60 px-2 py-1 text-rg-red"
     en: "Sweat & Grit"
     es: "Sudor y Coraje"
+trailerUrl: "https://iframe.mediadelivery.net/embed/54229/7cb78b10-d2d2-4684-8e50-dd8e190ab2a4?autoplay=true&loop=true&muted=true&preload=true&responsive=true"
 ---
+
 
 <!-- Auto-generated from watchfighters-matches.json -->
 
