@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
+import VideoPlayer from "robpins-match-db/components/VideoPlayer.astro";
 import "robpins-match-db/styles.css";
 
 export async function getStaticPaths() {
@@ -26,17 +27,23 @@ const thumbStyle = data.thumb
   : undefined;
 ---
 
-<BaseLayout
-  title={`${data.titleEn} — Match DB`}
-  description={data.descEn}
->
+<BaseLayout title={`${data.titleEn} — Match DB`} description={data.descEn}>
   <div class="match-db-page">
     <div class="match-db-shell">
       <a class="match-db-back" href="/database">Back to Database</a>
 
       <div class="match-db-detail">
         <section class="match-db-detail-card">
-          <div class="match-db-thumb match-db-thumb-large" style={thumbStyle} />
+          {
+            data.trailerUrl ? (
+              <VideoPlayer url={data.trailerUrl} poster={data.trailerPoster} />
+            ) : (
+              <div
+                class="match-db-thumb match-db-thumb-large"
+                style={thumbStyle}
+              />
+            )
+          }
           <div class="match-db-detail-body">
             <span class="match-db-eyebrow">{data.source}</span>
             <h1 class="match-db-title">{data.titleEn}</h1>
@@ -46,16 +53,18 @@ const thumbStyle = data.thumb
               <span>{data.duration}</span>
             </div>
             <div class="match-db-detail-actions">
-              {data.href && (
-                <a
-                  class="match-db-button primary"
-                  href={data.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  View Source
-                </a>
-              )}
+              {
+                data.href && (
+                  <a
+                    class="match-db-button primary"
+                    href={data.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    View Source
+                  </a>
+                )
+              }
               <a class="match-db-button" href="/database">Back to DB</a>
             </div>
           </div>
