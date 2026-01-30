@@ -48,5 +48,16 @@ export const links: LinkItem[] = [
 ];
 
 export const projects: ProjectItem[] = [
-  // keep your real projects here (don’t invent random ones)
+  {
+    title: 'Match Orchestrator',
+    description: 'Autonomous DaVinci Resolve pipeline for grappling match analysis and editing.',
+    status: 'Active',
+    href: 'https://github.com/robgrappler/match-orchestrator',
+  },
+  {
+    title: 'Robpins Match DB',
+    description: 'Shared content layer and UI components for cross-platform match management.',
+    status: 'Stable',
+    href: 'https://github.com/robgrappler/shared',
+  },
 ];

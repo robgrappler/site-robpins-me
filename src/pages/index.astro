@@ -17,6 +17,31 @@ const links = (await getCollection("links"))
     (a: CollectionEntry<"links">, b: CollectionEntry<"links">) =>
       a.data.order - b.data.order,
   );
+
+// Dynamic Featured Match logic
+const allMatches = await getCollection("matches");
+const latestDbFeatured = allMatches
+  .filter((m) => m.data.featured)
+  .sort((a, b) => {
+    const dateA = new Date(a.data.uploadDate || 0).getTime();
+    const dateB = new Date(b.data.uploadDate || 0).getTime();
+    return dateB - dateA;
+  })[0];
+
+// Merge DB match data into the featuredMatch shape if exists
+const activeFeatured = latestDbFeatured
+  ? {
+      ...featuredMatch,
+      title: latestDbFeatured.data.titleEn,
+      subtitle: latestDbFeatured.data.descEn,
+      href: latestDbFeatured.data.href || `/database/${latestDbFeatured.slug}`,
+      duration: latestDbFeatured.data.duration,
+      thumb: latestDbFeatured.data.thumb,
+      // If the DB match has multiple thumbs in the future, we could map them here.
+      // For now, we preserve the existing rotation behavior by keeping featuredMatch.thumbs if we want,
+      // or just using the DB thumb. Let's keep the DB thumb as the primary but allow rotation if we have it.
+    }
+  : featuredMatch;
 ---
 
 <BaseLayout title="Robgrappler's | Digital Garden">
@@ -52,16 +77,16 @@ const links = (await getCollection("links"))
     >
       <!-- FEATURED MATCH CARD -->
       <TileLink
-        href={featuredMatch.href}
+        href={activeFeatured.href}
         class="col-span-2 h-full rounded-3xl bg-[#1a1a1a] motion-safe:duration-300 motion-safe:hover:scale-[1.01] hover:shadow-[#F5C265]/10 md:col-span-2 md:row-span-2"
-        aria-label={`Watch featured match: ${featuredMatch.title}`}
+        aria-label={`Watch featured match: ${activeFeatured.title}`}
         tilt
       >
         <!-- Background Image/Gradient -->
         <div class="absolute inset-0 z-0">
           <img
-            src={featuredMatch.thumb}
-            data-thumbs={JSON.stringify(featuredMatch.thumbs || [])}
+            src={activeFeatured.thumb}
+            data-thumbs={JSON.stringify(activeFeatured.thumbs || [])}
             alt=""
             class="featured-thumb h-full w-full object-cover opacity-95 motion-safe:transition-transform motion-safe:duration-700 motion-safe:group-hover:scale-105 group-hover:opacity-80"
           />
@@ -83,7 +108,7 @@ const links = (await getCollection("links"))
             <span
               class="inline-block rounded-full border border-[#F5C265]/30 bg-[#F5C265]/10 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-[#F5C265] backdrop-blur-md"
             >
-              {featuredMatch.tag}
+              {activeFeatured.tag}
             </span>
           </div>
 
@@ -92,10 +117,10 @@ const links = (await getCollection("links"))
               <h2
                 class="font-bebas text-4xl leading-none text-white transition-colors group-hover:text-[#F5C265] sm:text-5xl md:text-6xl"
               >
-                {featuredMatch.title}
+                {activeFeatured.title}
               </h2>
               <p class="mt-2 font-sans text-sm font-medium text-gray-300">
-                {featuredMatch.subtitle}
+                {activeFeatured.subtitle}
               </p>
             </div>
 
@@ -115,7 +140,7 @@ const links = (await getCollection("links"))
                     stroke-width="2"
                     d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                 </svg>
-                <span>{featuredMatch.duration}</span>
+                <span>{activeFeatured.duration}</span>
               </div>
               <span class="text-gray-600">•</span>
               <div class="flex items-center gap-1.5">
@@ -137,7 +162,7 @@ const links = (await getCollection("links"))
                     d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
                   ></path>
                 </svg>
-                <span>{featuredMatch.price}</span>
+                <span>{activeFeatured.price}</span>
               </div>
             </div>
           </div>

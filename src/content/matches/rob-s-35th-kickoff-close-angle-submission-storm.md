@@ -11,6 +11,7 @@ duration: "28:25"
 durationSeconds: 1705
 source: "watchfighters"
 featured: true
+trailerUrl: "https://iframe.mediadelivery.net/embed/542292/f81e54c4-17f0-4142-895a-1ad7fa2aabf7"
 ---
 
 <!-- Auto-generated from watchfighters-matches.json -->

@@ -11,6 +11,7 @@ duration: "46:35"
 durationSeconds: 2795
 opponent: "Robgrappler"
 source: "watchfighters"
+trailerUrl: "https://iframe.mediadelivery.net/embed/542292/13d93c03-6480-41ce-a75a-71b97f5be6fe"
 ---
 
 <!-- Auto-generated from watchfighters-matches.json -->

@@ -4,3 +4,4 @@
 
 [build.environment]
   NODE_VERSION = "20"
+  PUBLIC_GA4_ID = "G-QMF4FJZ0WQ"

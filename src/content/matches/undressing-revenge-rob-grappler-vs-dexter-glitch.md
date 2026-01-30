@@ -11,6 +11,7 @@ duration: "13:20"
 durationSeconds: 800
 opponent: "Dexter Glitch"
 source: "watchfighters"
+trailerUrl: "https://iframe.mediadelivery.net/embed/542292/28a64e82-b5a4-4fb4-b11e-b606296a298b"
 ---
 
 <!-- Auto-generated from watchfighters-matches.json -->

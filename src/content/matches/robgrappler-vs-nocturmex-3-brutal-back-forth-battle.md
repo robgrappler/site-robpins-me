@@ -23,10 +23,8 @@ tags:
   - class: "btn-striped-light border border-rg-red/60 px-2 py-1 text-rg-red"
     en: "Sweat & Grit"
     es: "Sudor y Coraje"
-trailerUrl: "https://iframe.mediadelivery.net/embed/542292/7cb78b10-d2d2-4684-8e50-dd8e190ab2a4"
+trailerUrl: "https://iframe.mediadelivery.net/embed/542292/ca8696b4-6ef9-4258-96aa-3bfc1a864e15"
 ---
-
-# Robgrappler vs Nocturmex 3: Brutal Back ﹠ Forth Battle
 
 <!-- Auto-generated from watchfighters-matches.json -->
 

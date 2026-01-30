@@ -6,11 +6,28 @@ const {
   description = "Public links and projects.",
   lang = "en",
 } = Astro.props;
+
+const ga4Id = import.meta.env.PUBLIC_GA4_ID;
 ---
 
 <!doctype html>
 <html lang={lang}>
   <head>
+    <!-- Google Tag Manager -->
+    <script is:inline>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", "GTM-NGDV5T9P");
+    </script>
+    <!-- End Google Tag Manager -->
+
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
@@ -29,8 +46,38 @@ const {
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content="/images/ag-site-cover.png" />
+
+    {/* Google Analytics 4 */}
+    {
+      ga4Id && (
+        <>
+          <link
+            rel="preconnect"
+            href="https://www.googletagmanager.com"
+            crossorigin
+          />
+          <script
+            async
+            src={`https://www.googletagmanager.com/gtag/js?id=${ga4Id}`}
+          />
+          <script
+            is:inline
+            set:html={`window.dataLayer = window.dataLayer || [];\nfunction gtag(){dataLayer.push(arguments);}\ngtag('js', new Date());\ngtag('config', '${ga4Id}', { anonymize_ip: true });`}
+          />
+        </>
+      )
+    }
   </head>
   <body class="bg-ink-900">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-NGDV5T9P"
+        height="0"
+        width="0"
+        style="display:none;visibility:hidden"></iframe></noscript
+    >
+    <!-- End Google Tag Manager (noscript) -->
     <main class="min-h-screen">
       <slot />
     </main>
