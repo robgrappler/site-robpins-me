@@ -39,14 +39,14 @@ const ga4Id = import.meta.env.PUBLIC_GA4_ID;
     <meta property="og:url" content={Astro.url} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={image} />
+    <meta property="og:image" content={new URL(image, Astro.site)} />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content={Astro.url} />
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content={image} />
+    <meta property="twitter:image" content={new URL(image, Astro.site)} />
 
     {/* Google Analytics 4 */}
     {
