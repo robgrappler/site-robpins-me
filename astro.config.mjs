@@ -6,7 +6,7 @@ export default defineConfig({
   integrations: [tailwind({ applyBaseStyles: false })],
   vite: {
     ssr: {
-      noExternal: ["robpins-match-db"]
+      noExternal: []
     }
   }
 });

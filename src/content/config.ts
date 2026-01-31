@@ -1,5 +1,5 @@
 import { defineCollection, z } from 'astro:content';
-import { createMatchSchema } from "robpins-match-db/schema";
+import { createMatchSchema } from "../schema";
 
 const linksCollection = defineCollection({
     type: 'content',
