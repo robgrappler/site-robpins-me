@@ -1,6 +1,7 @@
 ---
 // src/pages/support.astro
 import BaseLayout from "../layouts/BaseLayout.astro";
+import LanguagePicker from "../components/LanguagePicker.astro";
 
 const title = "Support the work";
 const description = "Optional support for ongoing work and projects.";
@@ -56,6 +57,9 @@ const supportOptions = [
 
 <BaseLayout title={title}>
   <div class="mx-auto min-h-screen max-w-5xl px-4 py-12 sm:px-6 lg:px-8">
+    <div class="flex justify-end mb-4">
+      <LanguagePicker currentLang="en" />
+    </div>
     <!-- Header -->
     <header class="mb-16 text-center">
       <h1
