@@ -4,6 +4,7 @@ import "../styles/global.css";
 const {
   title = "Rob Pins",
   description = "Public links and projects.",
+  image = "/images/ag-site-cover.png",
   lang = "en",
 } = Astro.props;
 
@@ -38,14 +39,14 @@ const ga4Id = import.meta.env.PUBLIC_GA4_ID;
     <meta property="og:url" content={Astro.url} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content="/images/ag-site-cover.png" />
+    <meta property="og:image" content={image} />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content={Astro.url} />
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content="/images/ag-site-cover.png" />
+    <meta property="twitter:image" content={image} />
 
     {/* Google Analytics 4 */}
     {
