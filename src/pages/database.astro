@@ -1,10 +1,10 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
-import MatchCard from "robpins-match-db/components/MatchCard.astro";
-import MatchFilters from "robpins-match-db/components/MatchFilters.astro";
-import SearchBar from "robpins-match-db/components/SearchBar.astro";
-import "robpins-match-db/styles.css";
+import MatchCard from "../components/match-db/MatchCard.astro";
+import MatchFilters from "../components/match-db/MatchFilters.astro";
+import SearchBar from "../components/match-db/SearchBar.astro";
+import "../components/match-db/styles.css";
 import { useTranslations } from "../i18n/ui";
 
 const t = useTranslations("en");

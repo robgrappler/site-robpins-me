@@ -1,0 +1,88 @@
+---
+interface Props {
+    sources: string[];
+    years: string[];
+    total: number;
+}
+
+const { sources, years, total } = Astro.props;
+---
+
+<div class="match-db-filters" data-match-filters>
+    <div>
+        <label for="match-source">Source</label>
+        <select id="match-source" data-filter-source>
+            <option value="all">All Sources</option>
+            {sources.map((source) => <option value={source}>{source}</option>)}
+        </select>
+    </div>
+    <div>
+        <label for="match-year">Year</label>
+        <select id="match-year" data-filter-year>
+            <option value="all">All Years</option>
+            {years.map((year) => <option value={year}>{year}</option>)}
+        </select>
+    </div>
+    <div class="match-db-count" aria-live="polite">
+        <span data-match-count>{total}</span> matches
+    </div>
+</div>
+
+<script is:inline>
+    const initMatchFilters = () => {
+        const cards = Array.from(
+            document.querySelectorAll("[data-match-card]"),
+        );
+        if (!cards.length) return;
+
+        const searchInput = document.querySelector("[data-match-search]");
+        const sourceSelect = document.querySelector("[data-filter-source]");
+        const yearSelect = document.querySelector("[data-filter-year]");
+        const countLabel = document.querySelector("[data-match-count]");
+        const emptyState = document.querySelector("[data-match-empty]");
+
+        const normalize = (value) =>
+            (value || "").toString().toLowerCase().trim();
+
+        const applyFilters = () => {
+            const query = normalize(searchInput?.value);
+            const sourceValue = sourceSelect?.value || "all";
+            const yearValue = yearSelect?.value || "all";
+            let visibleCount = 0;
+
+            cards.forEach((card) => {
+                const cardSource = card.getAttribute("data-source") || "";
+                const cardYear = card.getAttribute("data-year") || "";
+                const searchable = card.getAttribute("data-search") || "";
+
+                const matchesQuery =
+                    !query || normalize(searchable).includes(query);
+                const matchesSource =
+                    sourceValue === "all" || cardSource === sourceValue;
+                const matchesYear =
+                    yearValue === "all" || cardYear === yearValue;
+                const shouldShow = matchesQuery && matchesSource && matchesYear;
+
+                card.toggleAttribute("hidden", !shouldShow);
+                if (shouldShow) visibleCount += 1;
+            });
+
+            if (countLabel) {
+                countLabel.textContent = String(visibleCount);
+            }
+
+            if (emptyState) {
+                emptyState.toggleAttribute("hidden", visibleCount !== 0);
+            }
+        };
+
+        searchInput?.addEventListener("input", applyFilters);
+        sourceSelect?.addEventListener("change", applyFilters);
+        yearSelect?.addEventListener("change", applyFilters);
+
+        applyFilters();
+    };
+
+    initMatchFilters();
+    document.addEventListener("astro:after-swap", initMatchFilters);
+</script>

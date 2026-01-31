@@ -1,0 +1,76 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+    entry: CollectionEntry<"matches">;
+    href?: string;
+    lang?: "en" | "es";
+}
+
+const { entry, href, lang = "en" } = Astro.props;
+const { data, slug } = entry;
+const displayDate = data.uploadDate
+    ? new Date(data.uploadDate).toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "short",
+          day: "2-digit",
+      })
+    : "";
+const uploadYear = data.uploadDate ? data.uploadDate.slice(0, 4) : "";
+const searchable = [
+    data.titleEn,
+    data.titleEs,
+    data.descEn,
+    data.descEs,
+    data.id,
+    data.source,
+    data.duration,
+]
+    .filter(Boolean)
+    .join(" ");
+const cardHref =
+    href ?? (lang === "es" ? `/es/database/${slug}` : `/database/${slug}`);
+const title = lang === "es" ? data.titleEs || data.titleEn : data.titleEn;
+const description = lang === "es" ? data.descEs || data.descEn : data.descEn;
+const thumbStyle = data.thumb
+    ? `--match-db-thumb: url('${data.thumb}')`
+    : undefined;
+---
+
+<article
+    class="match-db-card"
+    data-match-card
+    data-source={data.source}
+    data-year={uploadYear}
+    data-search={searchable}
+>
+    <a class="match-db-card-link" href={cardHref}>
+        <div class="match-db-thumb" style={thumbStyle}>
+            {
+                data.trailerUrl && (
+                    <div class="match-db-play-indicator" aria-hidden="true">
+                        <svg
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                            class="match-db-play-icon"
+                        >
+                            <path d="M8 5v14l11-7z" />
+                        </svg>
+                    </div>
+                )
+            }
+        </div>
+        <div class="match-db-card-body">
+            <div class="match-db-meta">
+                <span>{data.source}</span>
+                <span>{displayDate}</span>
+            </div>
+            <h3 class="match-db-title-text">{title}</h3>
+            <p class="match-db-desc">{description}</p>
+            <div class="match-db-footer">
+                <span>{data.duration}</span>
+                <span class="match-db-cta">Open</span>
+            </div>
+        </div>
+    </a>
+</article>

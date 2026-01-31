@@ -1,8 +1,8 @@
 ---
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
-import VideoPlayer from "robpins-match-db/components/VideoPlayer.astro";
-import "robpins-match-db/styles.css";
+import VideoPlayer from "../../../components/match-db/VideoPlayer.astro";
+import "../../../components/match-db/styles.css";
 import { useTranslations } from "../../../i18n/ui";
 
 export async function getStaticPaths() {

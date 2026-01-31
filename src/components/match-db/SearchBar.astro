@@ -1,0 +1,18 @@
+---
+interface Props {
+    placeholder?: string;
+}
+
+const { placeholder = "Search matches" } = Astro.props;
+---
+
+<div class="match-db-search">
+    <label for="match-search">Search</label>
+    <input
+        id="match-search"
+        type="search"
+        placeholder={placeholder}
+        data-match-search
+        autocomplete="off"
+    />
+</div>
