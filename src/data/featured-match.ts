@@ -14,19 +14,14 @@ export interface FeaturedMatch {
 }
 
 export const featuredMatch: FeaturedMatch = {
-    title: "4K Submission Showdown: Alpha vs. Rookie",
-    subtitle: "No Escape • Heavy Pressure • Top Control",
-    href: "https://view.wf/v/formywdf",
+    title: "Unfinished: He Didn't Tap",
+    subtitle: "Continuous Pressure • Positional Control • No Tap",
+    href: "https://www.watchfighters.com/posts/unfinished_he_didnt_tap-nvibltjr",
     tag: "FEATURED",
-    duration: "48:25",
-    price: "$14.99 USD",
-    thumb: "/images/featured/alphavsrooki4.avif",
-    thumbs: [
-        "/images/featured/alphavsrooki1.avif",
-        "/images/featured/alphavsrooki2.avif",
-        "/images/featured/alphavsrooki3.avif",
-        "/images/featured/alphavsrooki4.avif",
-    ],
+    duration: "7:18",
+    price: "Premium",
+    thumb: "/images/featured/unfinished-thumbnail.png",
+    thumbs: [],
 };
 
 /**

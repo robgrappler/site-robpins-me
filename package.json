@@ -4,10 +4,11 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "astro dev",
+    "clean:ds": "find . -name '.DS_Store' -delete 2>/dev/null || true",
+    "dev": "npm run clean:ds && astro dev",
     "predev": "npm run sync:matches",
     "build": "astro build",
-    "prebuild": "npm run sync:matches",
+    "prebuild": "npm run clean:ds && npm run sync:matches",
     "sync:matches": "node ../shared/robpins-match-db/scripts/sync-matches.mjs --dest src/content/matches",
     "preview": "astro preview"
   },

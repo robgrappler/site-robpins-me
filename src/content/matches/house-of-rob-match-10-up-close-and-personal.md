@@ -10,6 +10,7 @@ uploadDate: "2024-09-13"
 duration: "27:38"
 durationSeconds: 1658
 source: "watchfighters"
+trailerUrl: "https://iframe.mediadelivery.net/embed/542292/745d4d4c-a603-48a5-8239-001cefc2b0bf"
 ---
 
 <!-- Auto-generated from watchfighters-matches.json -->
