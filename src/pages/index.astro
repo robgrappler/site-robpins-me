@@ -75,43 +75,6 @@ const activeFeatured = latestDbFeatured
     <main
       class="grid grid-cols-2 gap-3 md:grid-cols-3 md:auto-rows-[190px] md:gap-4 lg:auto-rows-[210px]"
     >
-      <!-- BIRTHDAY BANNER -->
-      <a
-        href="/support"
-        class="spotlight-card col-span-2 flex items-center justify-between rounded-2xl border border-main-gold/60 bg-gradient-to-br from-main-surface to-[#5a2e63] px-8 py-6 text-white shadow-2xl shadow-main-gold/5 motion-safe:duration-300 motion-safe:hover:scale-[1.01] hover:border-main-gold hover:shadow-main-gold/10 md:col-span-3 group relative overflow-hidden"
-      >
-        <div class="relative z-10 flex w-full items-center justify-between">
-          <span class="font-bebas text-3xl text-white sm:text-5xl"
-            >36 yesterday: Another year, still in it.</span
-          >
-          <div class="flex items-center gap-2 text-[#F5C265]">
-            <span class="font-sans text-sm font-bold uppercase tracking-wider"
-              >Support the work</span
-            >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-            </svg>
-          </div>
-        </div>
-
-        <!-- Gold Spotlight Gradient -->
-        <div
-          class="pointer-events-none absolute -inset-px opacity-0 motion-safe:transition-opacity motion-safe:duration-300 group-hover:opacity-100"
-          style="background: radial-gradient(600px circle at var(--x) var(--y), rgba(245, 194, 101, 0.15), transparent 40%);"
-        >
-        </div>
-      </a>
-
       <!-- FEATURED MATCH CARD -->
       <TileLink
         href={activeFeatured.href}
