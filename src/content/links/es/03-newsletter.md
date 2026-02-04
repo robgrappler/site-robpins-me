@@ -4,6 +4,6 @@ description: "Notas semanales. Sin spam. Solo señal."
 url: "/es/breakdown"
 order: 3
 bentoSize: "small"
-style: "default"
+style: "mesh"
 icon: "nw"
 ---

@@ -37,8 +37,8 @@ const styleClasses: Record<string, string> = {
     // Hero: Dark Purple, Subtle Gradient.
     hero: "bg-gradient-to-br from-main-surface to-[#2A1B3D] border-white/10 hover:border-main-gold/50 text-white",
 
-    // 1. GLASS: Frosted look, great for media or images underneath
-    glass: "bg-white/5 backdrop-blur-lg border-white/10 text-white hover:bg-white/10 hover:border-white/20",
+    // 1. GLASS: Frosted look with gold accent, great for social media
+    glass: "bg-white/5 backdrop-blur-lg border-main-gold/30 text-white hover:bg-white/10 hover:border-main-gold/60",
 
     // 2. TERMINAL: Tech-focused, monospaced vibe (Good for Github/Code)
     terminal:
@@ -136,12 +136,8 @@ const ctaText = ctaMap[data.label] || "Open";
         </span>
 
         <div
-        class={`flex items-center gap-2 rounded px-3 py-1.5 text-xs font-bold uppercase tracking-wider motion-safe:transition-all motion-safe:duration-300 border border-transparent 
-        ${
-            data.style === "accent"
-                ? "bg-main-gold text-main-bg opacity-0 group-hover:opacity-100 motion-safe:translate-y-2 motion-safe:group-hover:translate-y-0 hover:bg-white hover:text-black motion-safe:hover:!scale-110 hover:shadow-xl"
-                : "bg-white/5 text-white opacity-0 group-hover:opacity-100 motion-safe:translate-y-2 motion-safe:group-hover:translate-y-0 group-hover:bg-white/10 group-hover:border-white/10 motion-safe:hover:!scale-110 hover:shadow-xl"
-        }`}
+            class={`flex items-center gap-2 rounded-lg px-4 py-2 text-xs font-black uppercase tracking-widest motion-safe:transition-all motion-safe:duration-300 border border-transparent 
+        bg-main-gold text-main-bg opacity-0 group-hover:opacity-100 motion-safe:translate-y-2 motion-safe:group-hover:translate-y-0 hover:bg-white hover:text-black hover:shadow-[0_0_20px_rgba(245,194,101,0.4)] motion-safe:hover:!scale-105`}
         >
             <span>{ctaText}</span>
             <svg
