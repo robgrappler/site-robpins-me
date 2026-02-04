@@ -5,24 +5,39 @@ import BentoCard from "../components/BentoCard.astro";
 import TileLink from "../components/TileLink.astro";
 import { getCollection, type CollectionEntry } from "astro:content";
 import { featuredMatch } from "../data/featured-match";
+
+type LinkEntry = CollectionEntry<"links">;
 import LanguagePicker from "../components/LanguagePicker.astro";
 import { ui, defaultLang, useTranslations } from "../i18n/ui";
 
 const t = useTranslations(defaultLang);
 
 // Fetch all links and sort by 'order'
+// Fetch all links and sort by 'order'
 const links = (await getCollection("links"))
-  .filter((entry) => entry.slug.startsWith("en/"))
+  .filter((entry: CollectionEntry<"links">) => entry.slug.startsWith("en/"))
   .sort(
     (a: CollectionEntry<"links">, b: CollectionEntry<"links">) =>
       a.data.order - b.data.order,
   );
 
+// Separate specific cards for the new layout
+const startLink = links.find((l: CollectionEntry<"links">) =>
+  l.slug.endsWith("01-start-here"),
+);
+const essentialsLink = links.find((l: CollectionEntry<"links">) =>
+  l.slug.endsWith("02-youtube"),
+);
+const otherLinks = links.filter(
+  (l: CollectionEntry<"links">) =>
+    !l.slug.endsWith("01-start-here") && !l.slug.endsWith("02-youtube"),
+);
+
 // Dynamic Featured Match logic
 const allMatches = await getCollection("matches");
 const latestDbFeatured = allMatches
-  .filter((m) => m.data.featured)
-  .sort((a, b) => {
+  .filter((m: CollectionEntry<"matches">) => m.data.featured)
+  .sort((a: CollectionEntry<"matches">, b: CollectionEntry<"matches">) => {
     const dateA = new Date(a.data.uploadDate || 0).getTime();
     const dateB = new Date(b.data.uploadDate || 0).getTime();
     return dateB - dateA;
@@ -75,10 +90,19 @@ const activeFeatured = latestDbFeatured
     <main
       class="grid grid-cols-2 gap-3 md:grid-cols-3 md:auto-rows-[190px] md:gap-4 lg:auto-rows-[210px]"
     >
-      <!-- FEATURED MATCH CARD -->
+      <!-- START HERE (Mobile: 2, Desktop: 1) -->
+      {
+        startLink && (
+          <div class="col-span-2 md:col-span-1 md:row-span-1 md:order-1">
+            <BentoCard link={startLink} />
+          </div>
+        )
+      }
+
+      <!-- FEATURED MATCH CARD (Mobile: 1, Desktop: 2) -->
       <TileLink
         href={activeFeatured.href}
-        class="col-span-2 min-h-[300px] h-full rounded-3xl bg-[#1a1a1a] motion-safe:duration-300 motion-safe:hover:scale-[1.01] hover:shadow-[#F5C265]/10 md:col-span-2 md:row-span-2"
+        class="col-span-2 min-h-[300px] h-full rounded-3xl bg-[#1a1a1a] motion-safe:duration-300 motion-safe:hover:scale-[1.01] hover:shadow-[#F5C265]/10 md:col-span-2 md:row-span-2 order-first md:order-2"
         aria-label={`Watch featured match: ${activeFeatured.title}`}
         tilt
       >
@@ -88,7 +112,7 @@ const activeFeatured = latestDbFeatured
             src={activeFeatured.thumb}
             data-thumbs={JSON.stringify(activeFeatured.thumbs || [])}
             alt=""
-            class="featured-thumb h-full w-full object-cover opacity-95 motion-safe:transition-transform motion-safe:duration-700 motion-safe:group-hover:scale-105 group-hover:opacity-80"
+            class="featured-thumb h-[101%] w-[101%] -translate-x-[0.5%] -translate-y-[0.5%] object-cover opacity-95 motion-safe:transition-transform motion-safe:duration-700 motion-safe:group-hover:scale-105 group-hover:opacity-80"
           />
           <div
             class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"
@@ -108,7 +132,7 @@ const activeFeatured = latestDbFeatured
             <span
               class="inline-block rounded-full border border-[#F5C265]/30 bg-[#F5C265]/10 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-[#F5C265] backdrop-blur-md"
             >
-              {activeFeatured.tag}
+              Start Here
             </span>
           </div>
 
@@ -171,7 +195,19 @@ const activeFeatured = latestDbFeatured
         </div>
       </TileLink>
 
-      {links.map((link) => <BentoCard link={link} />)}
+      <!-- ESSENTIALS (Mobile: 3, Desktop: 3) -->
+      {
+        essentialsLink && (
+          <div class="col-span-2 md:col-span-1 md:row-span-1 md:order-3">
+            <BentoCard link={essentialsLink} />
+          </div>
+        )
+      }
+
+      <!-- REST OF LINKS (Mobile: 4+, Desktop: 4+) -->
+      <div class="col-span-2 grid grid-cols-2 gap-3 md:contents md:order-4">
+        {otherLinks.map((link: LinkEntry) => <BentoCard link={link} />)}
+      </div>
     </main>
 
     <footer
