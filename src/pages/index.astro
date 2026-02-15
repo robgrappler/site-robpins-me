@@ -192,7 +192,15 @@ const activeFeatured = latestDbFeatured
         link={links.find((l: LinkEntry) => l.slug.endsWith("04-database"))!}
       />
 
-      <!-- Row 4: X/Twitter | Instagram | The Vault -->
+      <!-- Row 4: Rob's Corner VIP | The Vault -->
+      <BentoCard
+        link={links.find((l: LinkEntry) => l.slug.endsWith("10-vip"))!}
+      />
+      <BentoCard
+        link={links.find((l: LinkEntry) => l.slug.endsWith("07-vault"))!}
+      />
+
+      <!-- Row 5: X/Twitter | Instagram | Community -->
       <BentoCard
         link={links.find((l: LinkEntry) => l.slug.endsWith("05-twitter"))!}
       />
@@ -200,13 +208,10 @@ const activeFeatured = latestDbFeatured
         link={links.find((l: LinkEntry) => l.slug.endsWith("06-instagram"))!}
       />
       <BentoCard
-        link={links.find((l: LinkEntry) => l.slug.endsWith("07-vault"))!}
-      />
-
-      <!-- Row 5: Community | Deals & Gear -->
-      <BentoCard
         link={links.find((l: LinkEntry) => l.slug.endsWith("08-community"))!}
       />
+
+      <!-- Row 6: Deals & Gear -->
       <BentoCard
         link={links.find((l: LinkEntry) => l.slug.endsWith("09-referrals"))!}
       />
