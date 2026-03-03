@@ -96,14 +96,14 @@ const ctaText = ctaMap[data.label] || "Open";
                     <div
                         class={`flex h-8 w-8 items-center justify-center rounded-full bg-white/5 transition-colors group-hover:bg-main-gold/20`}
                     >
-                        <span class="font-bebas text-sm tracking-widest opacity-80 text-white group-hover:text-main-gold">
+                        <span class="font-bebas text-sm font-bold tracking-widest opacity-80 text-white">
                             {data.icon.substring(0, 2)}
                         </span>
                     </div>
                 )
             }
             <h3
-                class="font-bebas text-3xl uppercase tracking-wide leading-none text-white"
+                class="font-bebas text-3xl font-bold uppercase tracking-wide leading-none text-white"
             >
                 {data.label}
             </h3>
@@ -120,7 +120,7 @@ const ctaText = ctaMap[data.label] || "Open";
 
     <div class="relative z-10 flex items-end justify-between">
         <span
-            class={`text-[10px] font-bold uppercase tracking-[0.25em] transition-colors ${
+            class={`text-[10px] font-normal uppercase tracking-[0.25em] transition-colors ${
                 data.style === "hero"
                     ? "text-main-gold"
                     : "text-sub-grey group-hover:text-main-gold"
@@ -136,7 +136,7 @@ const ctaText = ctaMap[data.label] || "Open";
         </span>
 
         <div
-            class={`flex items-center gap-2 rounded-lg px-4 py-2 text-xs font-black uppercase tracking-widest motion-safe:transition-all motion-safe:duration-300 border border-transparent 
+            class={`flex items-center gap-2 rounded-lg px-4 py-2 text-xs font-normal uppercase tracking-widest motion-safe:transition-all motion-safe:duration-300 border border-transparent 
         bg-main-gold text-main-bg opacity-0 group-hover:opacity-100 motion-safe:translate-y-2 motion-safe:group-hover:translate-y-0 hover:bg-white hover:text-black hover:shadow-[0_0_20px_rgba(245,194,101,0.4)] motion-safe:hover:!scale-105`}
         >
             <span>{ctaText}</span>

@@ -68,7 +68,7 @@ const supportOptions = [
         {title}
       </h1>
       <p class="mx-auto max-w-2xl font-sans text-lg text-sub-paper/80">
-        <span class="mb-1 block text-sm font-medium opacity-60"
+        <span class="mb-1 block text-sm font-normal opacity-60"
           >For those who’ve asked.</span
         >
         Contributions are voluntary and <span class="text-main-gold"
@@ -88,11 +88,11 @@ const supportOptions = [
             <!-- Content -->
             <div class="mb-8">
               <h2
-                class={`mb-2 font-bebas text-3xl tracking-wide text-white transition-colors ${opt.textAccent}`}
+                class={`mb-2 font-bebas text-3xl font-bold tracking-wide text-white transition-colors ${opt.textAccent}`}
               >
                 {opt.title}
               </h2>
-              <p class="font-sans text-sm font-medium text-sub-grey">
+              <p class="font-sans text-sm font-normal text-sub-grey">
                 {opt.note}
               </p>
             </div>
@@ -106,7 +106,7 @@ const supportOptions = [
                     href={link.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="rounded-lg bg-[#F5C265] px-4 py-2 font-sans text-sm font-black uppercase tracking-widest text-[#0b0b0e] motion-safe:transition-all hover:bg-white hover:text-black hover:shadow-[0_0_20px_rgba(245,194,101,0.4)] motion-safe:hover:scale-105 group-focus-visible:ring-2 group-focus-visible:ring-main-gold/70 group-focus-visible:ring-offset-2 group-focus-visible:ring-offset-main-bg"
+                    class="rounded-lg bg-[#F5C265] px-4 py-2 font-sans text-sm font-normal uppercase tracking-widest text-[#0b0b0e] motion-safe:transition-all hover:bg-white hover:text-black hover:shadow-[0_0_20px_rgba(245,194,101,0.4)] motion-safe:hover:scale-105 group-focus-visible:ring-2 group-focus-visible:ring-main-gold/70 group-focus-visible:ring-offset-2 group-focus-visible:ring-offset-main-bg"
                   >
                     {link.text}
                   </a>
@@ -116,14 +116,14 @@ const supportOptions = [
               <!-- Secondary "Other Amount" Option -->
               {opt.otherLink && (
                 <div class="pt-2">
-                  <p class="mb-1 font-sans text-xs font-medium text-sub-grey/50">
+                  <p class="mb-1 font-sans text-xs font-normal text-sub-grey/50">
                     Prefer a different amount? That’s fine too.
                   </p>
                   <a
                     href={opt.otherLink.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="inline-block font-sans text-xs font-bold text-sub-paper/60 transition-colors hover:text-main-gold"
+                    class="inline-block font-sans text-xs font-normal text-sub-paper/60 transition-colors hover:text-main-gold"
                   >
                     {opt.otherLink.label} &rarr;
                   </a>
@@ -144,7 +144,7 @@ const supportOptions = [
     <!-- Outro -->
     <footer class="mt-20 text-center opacity-60">
       <p
-        class="font-sans text-sm font-bold uppercase tracking-widest text-sub-grey/50"
+        class="font-sans text-sm font-normal uppercase tracking-widest text-sub-grey/50"
       >
         No expectations. No pressure. Just appreciation.
       </p>

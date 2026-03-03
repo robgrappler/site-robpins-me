@@ -57,13 +57,13 @@ const activeFeatured = latestDbFeatured
     <div class="mx-auto min-h-screen max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <header class="mb-12 flex flex-col gap-2">
             <span
-                class="font-sans text-xs font-bold uppercase tracking-[0.2em] text-sub-grey"
+                class="font-sans text-xs font-normal uppercase tracking-[0.2em] text-sub-grey"
             >
                 Digital Matroom v2.0
             </span>
             <div class="flex items-start justify-between">
                 <h1
-                    class="font-b612 text-5xl font-black tracking-tight text-white sm:text-7xl"
+                    class="font-b612 text-5xl font-bold tracking-tight text-white sm:text-7xl"
                 >
                     {t("hero.title")}
                 </h1>
@@ -91,7 +91,7 @@ const activeFeatured = latestDbFeatured
             <!-- FEATURED MATCH CARD: Takes 2 cols and 2 rows -->
             <TileLink
                 href={activeFeatured.href}
-                class="col-span-2 min-h-[300px] h-full rounded-3xl bg-[#1a1a1a] motion-safe:duration-300 motion-safe:hover:scale-[1.01] hover:shadow-[#F5C265]/10 md:col-span-2 md:row-span-2"
+                class="order-first md:order-none col-span-2 min-h-[300px] h-full rounded-3xl bg-[#1a1a1a] motion-safe:duration-300 motion-safe:hover:scale-[1.01] hover:shadow-[#F5C265]/10 md:col-span-2 md:row-span-2"
                 aria-label={`Watch featured match: ${activeFeatured.title}`}
                 tilt
             >
@@ -114,13 +114,13 @@ const activeFeatured = latestDbFeatured
                 <!-- Content -->
                 <div class="relative z-10 flex h-full flex-col justify-between">
                     <span
-                        class="absolute bottom-3 right-3 md:bottom-6 md:right-6 z-20 w-fit rounded-lg bg-[#F5C265] px-3 py-1.5 md:px-5 md:py-2.5 font-sans text-[10px] md:text-xs font-black uppercase tracking-widest text-[#0b0b0e] motion-safe:transition-all hover:bg-white hover:text-black hover:shadow-[0_0_20px_rgba(245,194,101,0.4)] motion-safe:hover:scale-105 group-focus-visible:ring-2 group-focus-visible:ring-main-gold/70 group-focus-visible:ring-offset-2 group-focus-visible:ring-offset-main-bg"
+                        class="absolute bottom-3 right-3 md:bottom-6 md:right-6 z-20 w-fit rounded-lg bg-[#F5C265] px-3 py-1.5 md:px-5 md:py-2.5 font-sans text-[10px] md:text-xs font-normal uppercase tracking-widest text-[#0b0b0e] motion-safe:transition-all hover:bg-white hover:text-black hover:shadow-[0_0_20px_rgba(245,194,101,0.4)] motion-safe:hover:scale-105 group-focus-visible:ring-2 group-focus-visible:ring-main-gold/70 group-focus-visible:ring-offset-2 group-focus-visible:ring-offset-main-bg"
                     >
                         Ver Ahora ↗
                     </span>
                     <div class="flex items-start justify-between">
                         <span
-                            class="inline-block rounded-full border border-[#F5C265]/30 bg-[#F5C265]/10 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-[#F5C265] backdrop-blur-md"
+                            class="inline-block rounded-full border border-[#F5C265]/30 bg-[#F5C265]/10 px-3 py-1 text-[10px] font-normal uppercase tracking-wider text-[#F5C265] backdrop-blur-md"
                         >
                             {activeFeatured.tag}
                         </span>
@@ -129,19 +129,19 @@ const activeFeatured = latestDbFeatured
                     <div class="space-y-4">
                         <div>
                             <h2
-                                class="hidden md:block font-bebas text-4xl leading-none text-white transition-colors group-hover:text-[#F5C265] sm:text-5xl md:text-6xl"
+                                class="hidden md:block font-bebas text-4xl font-bold leading-none text-white transition-colors sm:text-5xl md:text-6xl"
                             >
                                 {activeFeatured.title}
                             </h2>
                             <p
-                                class="hidden md:block mt-2 font-sans text-sm font-medium text-gray-300"
+                                class="hidden md:block mt-2 font-sans text-sm font-normal text-gray-300"
                             >
                                 {activeFeatured.subtitle}
                             </p>
                         </div>
 
                         <div
-                            class="flex items-center gap-4 text-xs font-bold text-gray-400"
+                            class="flex items-center gap-4 text-xs font-normal text-gray-400"
                         >
                             <div class="flex items-center gap-1.5">
                                 <svg
@@ -192,8 +192,7 @@ const activeFeatured = latestDbFeatured
                 link={links.find((l) => l.slug.endsWith("04-database"))!}
             />
 
-            <!-- Row 4: Rob's Corner VIP | The Vault -->
-            <BentoCard link={links.find((l) => l.slug.endsWith("10-vip"))!} />
+            <!-- Row 4: The Vault -->
             <BentoCard link={links.find((l) => l.slug.endsWith("07-vault"))!} />
 
             <!-- Row 5: X/Twitter | Instagram | Community -->
@@ -220,6 +219,11 @@ const activeFeatured = latestDbFeatured
                 class="font-sans text-xs text-sub-grey uppercase tracking-widest"
             >
                 © {new Date().getFullYear()} Robgrappler. Todos los derechos reservados.
+                <span class="mx-2 opacity-50">|</span>
+                Built in the mat by <a
+                    href="https://nodoalfa.com"
+                    class="transition-colors hover:text-[#F5C265]">Nodo Alfa</a
+                >
             </p>
         </footer>
     </div>

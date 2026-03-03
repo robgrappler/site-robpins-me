@@ -14,13 +14,13 @@ export interface FeaturedMatch {
 }
 
 export const featuredMatch: FeaturedMatch = {
-    title: "Unfinished: He Didn't Tap",
-    subtitle: "Continuous Pressure • Positional Control • No Tap",
-    href: "https://www.watchfighters.com/posts/unfinished_he_didnt_tap-nvibltjr",
+    title: "Roughhousing Part I: Memfight's Suffocating Challenge",
+    subtitle: "Submission Grappling • Rough Competitive Match • 4K",
+    href: "https://view.wf/v/avpgwvdf",
     tag: "FEATURED",
-    duration: "7:18",
-    price: "Premium",
-    thumb: "/images/featured/unfinished-thumbnail.png",
+    duration: "8:59",
+    price: "$8.99",
+    thumb: "/images/featured/memfight-part1-thumbnail.jpg",
     thumbs: [],
 };
 

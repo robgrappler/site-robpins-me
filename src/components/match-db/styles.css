@@ -26,8 +26,8 @@
 
 .match-db-title {
   font-size: 2.5rem;
-  font-weight: 700;
-  color: var(--match-db-text);
+  font-weight: 600;
+  color: #ffffff;
   margin-bottom: 0.5rem;
 }
 
@@ -63,7 +63,7 @@
 .match-db-filters label {
   display: block;
   font-size: 0.875rem;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--match-db-text-muted);
   margin-bottom: 0.5rem;
 }
@@ -192,8 +192,8 @@
 
 .match-db-title-text {
   font-size: 1.1rem;
-  font-weight: 700;
-  color: var(--match-db-text);
+  font-weight: 600;
+  color: #ffffff;
   margin: 0 0 0.5rem 0;
   line-height: 1.4;
   display: -webkit-box;
@@ -227,7 +227,7 @@
 
 .match-db-cta {
   color: var(--match-db-gold);
-  font-weight: 600;
+  font-weight: 500;
 }
 
 /* Empty State */
