@@ -1,0 +1,23 @@
+---
+interface Props {
+  items: Array<{ label: string }>;
+}
+
+const { items } = Astro.props;
+---
+
+<div class="section-layer">
+  <div class="section-layer-map" aria-hidden="true">
+    <ol class="section-layer-index">
+      {items.map((item, i) => (
+        <li class="section-layer-entry">
+          <span class="section-layer-ordinal">{String(i + 1).padStart(2, "0")}</span>
+          <span class="section-layer-label">{item.label}</span>
+        </li>
+      ))}
+    </ol>
+  </div>
+  <div class="section-layer-content">
+    <slot />
+  </div>
+</div>

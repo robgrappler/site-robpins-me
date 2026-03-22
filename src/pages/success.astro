@@ -1,24 +1,22 @@
 ---
+// success.astro - Newsletter signup confirmation using the shared page-shell system.
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
-<BaseLayout title="Success | Robgrappler's">
-    <div
-        class="mx-auto flex min-h-[60vh] max-w-7xl flex-col items-center justify-center px-4 py-8 text-center sm:px-6 lg:px-8"
-    >
-        <h1
-            class="font-b612 text-5xl font-normal tracking-tight text-white mb-6"
-        >
-            Success!
-        </h1>
-        <p class="max-w-xl font-sans text-lg text-sub-paper/80 mb-12">
-            Thanks for subscribing. You've been added to the list.
-        </p>
-        <a
-            href="/"
-            class="rounded-full bg-gold-500 px-8 py-3 font-sans text-sm font-normal uppercase tracking-widest text-ink-900 transition-all duration-300 hover:scale-105 hover:bg-gold-400 hover:shadow-lg hover:shadow-gold-500/20"
-        >
-            Return Home
-        </a>
+<BaseLayout title="Confirmed — Robgrappler">
+  <div class="page-shell">
+    <a class="page-backlink" href="/">Back to Matroom</a>
+
+    <header class="page-header">
+      <div class="page-eyebrow">Confirmed</div>
+      <h1 class="page-title">You're In</h1>
+      <p class="page-lead">
+        Thanks for subscribing. You've been added to the list.
+      </p>
+    </header>
+
+    <div class="inline-link-list">
+      <a href="/">Return to Matroom</a>
     </div>
+  </div>
 </BaseLayout>

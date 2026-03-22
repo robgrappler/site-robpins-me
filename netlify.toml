@@ -5,3 +5,9 @@
 [build.environment]
   NODE_VERSION = "20"
   PUBLIC_GA4_ID = "G-QMF4FJZ0WQ"
+
+[[redirects]]
+  from = "/blog"
+  to = "https://robgrappler.io/blog/?lang=en"
+  status = 301
+  force = true

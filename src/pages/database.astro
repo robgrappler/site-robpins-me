@@ -1,9 +1,11 @@
 ---
+// database.astro - Upgraded archive index page that preserves the match collection and filter behavior.
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
 import MatchCard from "../components/match-db/MatchCard.astro";
 import MatchFilters from "../components/match-db/MatchFilters.astro";
 import SearchBar from "../components/match-db/SearchBar.astro";
+import SectionIndexLayer from "../components/SectionIndexLayer.astro";
 import "../components/match-db/styles.css";
 import { useTranslations } from "../i18n/ui";
 
@@ -23,37 +25,44 @@ const years = Array.from(
       .filter(Boolean),
   ),
 ).sort((a, b) => b.localeCompare(a));
+
+const sectionMapItems = [
+  { label: "MATCHES" },
+  { label: "SESSIONS" },
+  { label: "SERIES" },
+  { label: "ARCHIVE" },
+];
 ---
 
 <BaseLayout title={t("db.title")} description={t("db.subtitle")}>
   <div class="match-db-page">
-    <div class="match-db-shell">
-      <a class="match-db-back" href="/">{t("db.back")}</a>
+    <div class="page-shell">
+      <a class="page-backlink" href="/">{t("db.back")}</a>
 
-      <header class="match-db-header">
-        <span class="match-db-eyebrow">Digital Matroom</span>
-        <h1 class="match-db-title">{t("db.title")}</h1>
-        <p class="match-db-subtitle">
-          {t("db.subtitle")}
-        </p>
+      <header class="page-header">
+        <div class="page-eyebrow">Archive Index</div>
+        <h1 class="page-title">{t("db.title")}</h1>
+        <p class="page-lead">{t("db.subtitle")}</p>
       </header>
 
-      <div class="match-db-controls">
-        <SearchBar placeholder={t("db.searchPlaceholder")} />
-        <MatchFilters
-          sources={sources}
-          years={years}
-          total={sortedMatches.length}
-        />
-      </div>
+      <SectionIndexLayer items={sectionMapItems}>
+        <div class="match-db-controls" style="margin-bottom: 1.5rem;">
+          <SearchBar placeholder={t("db.searchPlaceholder")} />
+          <MatchFilters
+            sources={sources}
+            years={years}
+            total={sortedMatches.length}
+          />
+        </div>
 
-      <section class="match-db-grid">
-        {sortedMatches.map((entry) => <MatchCard entry={entry} lang="en" />)}
-      </section>
+        <section class="match-db-grid">
+          {sortedMatches.map((entry) => <MatchCard entry={entry} lang="en" />)}
+        </section>
 
-      <div class="match-db-empty" data-match-empty hidden>
-        {t("db.empty")}
-      </div>
+        <div class="match-db-empty" data-match-empty hidden>
+          {t("db.empty")}
+        </div>
+      </SectionIndexLayer>
     </div>
   </div>
 </BaseLayout>

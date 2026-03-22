@@ -1,30 +1,53 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import SectionHeading from '../components/SectionHeading.astro';
-import { projects } from '../data/config';
+// projects.astro — Systems page, editorial-band pattern
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionIndexLayer from "../components/SectionIndexLayer.astro";
+import { projects } from "../data/config";
+
+const sectionMapItems = [
+  { label: "PIPELINE" },
+  { label: "MATCH DB" },
+];
 ---
 
-<BaseLayout title="Projects | Rob Pins" description="Projects and archives from Rob Pins.">
-  <div class="mx-auto flex max-w-3xl flex-col gap-10 px-6 py-20">
-    <a class="btn btn-ghost" href="/">Back to home</a>
+<BaseLayout title="Systems — Robgrappler">
+  <div class="page-shell">
+    <a class="page-backlink" href="/">Back to Matroom</a>
 
-    <section class="flex flex-col gap-6">
-      <SectionHeading title="PROJECTS" subtitle="Current focus and upcoming work." />
-      <div class="grid gap-4">
-        {projects.map((project) => (
-          <div class="link-card card card-body flex flex-col gap-2">
-            <div class="flex items-center justify-between">
-              <h2 class="text-lg font-normal text-white">{project.title}</h2>
-              {project.status && (
-                <span class="badge badge-outline text-xs uppercase tracking-[0.2em] text-slate-400">
-                  {project.status}
-                </span>
-              )}
-            </div>
-            <p class="text-sm text-slate-400">{project.description}</p>
+    <header class="page-header">
+      <div class="page-eyebrow">Systems</div>
+      <h1 class="page-title">Active Work</h1>
+      <p class="page-lead">
+        Tools and infrastructure running behind Robgrappler content and
+        operations.
+      </p>
+    </header>
+
+    <SectionIndexLayer items={sectionMapItems}>
+      {
+        projects.map((project) => (
+          <div class="content-band">
+            {project.status && (
+              <span class="panel-kicker">{project.status}</span>
+            )}
+            <h2 class="band-heading">{project.title}</h2>
+            <p class="panel-copy" style="margin-top: 0.75rem;">
+              {project.description}
+            </p>
+            {project.href && (
+              <div class="inline-link-list" style="margin-top: 1.25rem;">
+                <a
+                  href={project.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  View on GitHub
+                </a>
+              </div>
+            )}
           </div>
-        ))}
-      </div>
-    </section>
+        ))
+      }
+    </SectionIndexLayer>
   </div>
 </BaseLayout>

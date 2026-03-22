@@ -1,9 +1,10 @@
 ---
 label: "Instagram"
-description: "Daily clips & training BTS."
+description: "Clips, behind-the-scenes moments, and visual updates from the mat."
 url: "https://instagram.com/rob.grappler"
 order: 6
 bentoSize: "small"
-style: "default"         # Clean standard look
+style: "default"
 icon: "IG"
+image: "/images/featured/alphavsrooki3.avif"
 ---

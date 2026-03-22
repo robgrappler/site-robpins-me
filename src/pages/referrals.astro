@@ -1,127 +1,84 @@
 ---
+// referrals.astro - Deals and gear directory styled with the editorial-band system.
 import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionIndexLayer from "../components/SectionIndexLayer.astro";
+
+const sectionMapItems = [
+  { label: "TOOLS" },
+  { label: "TECH" },
+  { label: "INTERNET" },
+  { label: "REWARDS" },
+];
+
+const referrals = [
+  {
+    kicker: "Terminal",
+    title: "Warp Terminal",
+    description: "The terminal for the 21st century. Fast, focused, and useful.",
+    href: "https://app.warp.dev/referral/JXG89G",
+    cta: "Get Deal",
+  },
+  {
+    kicker: "Voice",
+    title: "Wispr Flow",
+    description: "Voice dictation that actually holds up. One month free.",
+    href: "https://wisprflow.ai/r?ROBERT1335",
+    cta: "Get Month",
+  },
+  {
+    kicker: "Payments",
+    title: "DiDi Credit Card",
+    description: "Rewards and benefits through the DiDi card offer.",
+    href: "https://d.didiglobal.com/ujPMw27?r=11&c=M2",
+    cta: "Get Card",
+  },
+  {
+    kicker: "Internet",
+    title: "Starlink",
+    description: "High-speed satellite internet with a free month of service.",
+    href: "https://starlink.com/residential?referral=RC-496153-83402-12",
+    cta: "Free Month",
+  },
+  {
+    kicker: "AI",
+    title: "Manus",
+    description: "Invitation link with 500 free credits at registration.",
+    href: "https://manus.im/invitation/V9NI70JFCRY4E",
+    cta: "Get Credits",
+  },
+];
 ---
 
-<BaseLayout title="Deals & Gear">
-  <div class="mx-auto min-h-screen max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-    <div class="mb-8">
-      <a class="btn btn-sm btn-ghost" href="/">Back to Matroom</a>
-    </div>
+<BaseLayout title="Deals & Gear — Robgrappler">
+  <div class="page-shell">
+    <a class="page-backlink" href="/">Back to Matroom</a>
 
-    <header class="mb-12 flex flex-col gap-2">
-      <span
-        class="font-sans text-xs font-normal uppercase tracking-[0.2em] text-sub-grey"
-      >
-        Digital Matroom v2.0
-      </span>
-      <h1
-        class="font-b612 text-5xl font-normal tracking-tight text-white sm:text-7xl"
-      >
-        Deals & Gear
-      </h1>
-      <p class="max-w-xl font-sans text-lg text-sub-paper/80">
-        Discounts and tools I trust. Updated as partnerships come and go.
+    <header class="page-header">
+      <div class="page-eyebrow">Useful Links</div>
+      <h1 class="page-title">Deals & Gear</h1>
+      <p class="page-lead">
+        Tools and offers worth keeping around. No clutter, no filler, no giant
+        sponsor wall.
       </p>
     </header>
 
-    <main class="flex flex-col gap-6">
-      <section class="grid grid-cols-1 gap-4 md:grid-cols-3">
-        <div
-          class="rounded-2xl border border-white/10 bg-main-surface/40 p-6 transform transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-black/50 hover:border-[#F5C265]/20"
-        >
-          <h2 class="font-b612 text-xl uppercase tracking-wide text-white">
-            Warp Terminal
-          </h2>
-          <p class="mt-2 text-sm text-sub-paper/80">
-            The terminal for the 21st century. AI built-in. Fast.
-          </p>
-          <a
-            class="mt-4 inline-flex w-fit rounded-lg bg-[#F5C265] px-4 py-2 font-sans text-xs font-normal uppercase tracking-widest text-[#0b0b0e] motion-safe:transition-all hover:bg-white hover:text-black hover:shadow-[0_0_20px_rgba(245,194,101,0.4)] motion-safe:hover:scale-105"
-            href="https://app.warp.dev/referral/JXG89G"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            GET DEAL
-          </a>
+    <SectionIndexLayer items={sectionMapItems}>
+      {referrals.map((item) => (
+        <div class="content-band">
+          <span class="panel-kicker">{item.kicker}</span>
+          <h2 class="band-heading">{item.title}</h2>
+          <p class="panel-copy" style="margin-top: 0.75rem;">{item.description}</p>
+          <div class="inline-link-list" style="margin-top: 1.25rem;">
+            <a
+              href={item.href}
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              {item.cta}
+            </a>
+          </div>
         </div>
-
-        <div
-          class="rounded-2xl border border-white/10 bg-main-surface/40 p-6 transform transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-black/50 hover:border-[#F5C265]/20"
-        >
-          <h2 class="font-b612 text-xl uppercase tracking-wide text-white">
-            Wispr Flow
-          </h2>
-          <p class="mt-2 text-sm text-sub-paper/80">
-            Voice dictation that actually works. Get 1 month free.
-          </p>
-          <a
-            class="mt-4 inline-flex w-fit rounded-lg bg-[#F5C265] px-4 py-2 font-sans text-xs font-normal uppercase tracking-widest text-[#0b0b0e] motion-safe:transition-all hover:bg-white hover:text-black hover:shadow-[0_0_20px_rgba(245,194,101,0.4)] motion-safe:hover:scale-105"
-            href="https://wisprflow.ai/r?ROBERT1335"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            GET DEAL
-          </a>
-        </div>
-
-        <div
-          class="rounded-2xl border border-white/10 bg-main-surface/40 p-6 transform transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-black/50 hover:border-[#F5C265]/20"
-        >
-          <h2 class="font-b612 text-xl uppercase tracking-wide text-white">
-            DiDi Credit Card
-          </h2>
-          <p class="mt-2 text-sm text-sub-paper/80">
-            Get rewards and benefits with the DiDi Credit Card.
-          </p>
-          <a
-            class="mt-4 inline-flex w-fit rounded-lg bg-[#F5C265] px-4 py-2 font-sans text-xs font-normal uppercase tracking-widest text-[#0b0b0e] motion-safe:transition-all hover:bg-white hover:text-black hover:shadow-[0_0_20px_rgba(245,194,101,0.4)] motion-safe:hover:scale-105"
-            href="https://d.didiglobal.com/ujPMw27?r=11&c=M2"
-          >
-            GET THE CARD
-          </a>
-        </div>
-        <div
-          class="rounded-2xl border border-white/10 bg-main-surface/40 p-6 transform transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-black/50 hover:border-[#F5C265]/20"
-        >
-          <h2 class="font-b612 text-xl uppercase tracking-wide text-white">
-            Starlink
-          </h2>
-          <p class="mt-2 text-sm text-sub-paper/80">
-            High-speed satellite internet. Get one month of service for free.
-          </p>
-          <a
-            class="mt-4 inline-flex w-fit rounded-lg bg-[#F5C265] px-4 py-2 font-sans text-xs font-normal uppercase tracking-widest text-[#0b0b0e] motion-safe:transition-all hover:bg-white hover:text-black hover:shadow-[0_0_20px_rgba(245,194,101,0.4)] motion-safe:hover:scale-105"
-            href="https://starlink.com/residential?referral=RC-496153-83402-12"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            GET FREE MONTH
-          </a>
-        </div>
-
-        <div
-          class="rounded-2xl border border-white/10 bg-main-surface/40 p-6 transform transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-black/50 hover:border-[#F5C265]/20"
-        >
-          <h2 class="font-b612 text-xl uppercase tracking-wide text-white">
-            Manus
-          </h2>
-          <p class="mt-2 text-sm text-sub-paper/80">
-            Invitation link. Get 500 free credits when you register.
-          </p>
-          <a
-            class="mt-4 inline-flex w-fit rounded-lg bg-[#F5C265] px-4 py-2 font-sans text-xs font-normal uppercase tracking-widest text-[#0b0b0e] motion-safe:transition-all hover:bg-white hover:text-black hover:shadow-[0_0_20px_rgba(245,194,101,0.4)] motion-safe:hover:scale-105"
-            href="https://manus.im/invitation/V9NI70JFCRY4E"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            GET CREDITS
-          </a>
-        </div>
-      </section>
-
-      <p class="text-xs uppercase tracking-[0.2em] text-sub-grey">
-        This page stays clean. No weird stuff. Just useful deals.
-      </p>
-    </main>
+      ))}
+    </SectionIndexLayer>
   </div>
 </BaseLayout>

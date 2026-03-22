@@ -1,9 +1,10 @@
 ---
 label: "Deals & Gear"
-description: "Hosting credits & discount codes."
+description: "Useful tools, credits, and discounts that stay worth recommending."
 url: "/referrals"
 order: 9
 bentoSize: "small"
-style: "accent"           # Gold outline CTA
-icon: "DG"              # "Deals & Gear"
+style: "accent"
+icon: "DG"
+image: "/images/support-card.png"
 ---

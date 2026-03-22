@@ -1,31 +1,60 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import SectionHeading from '../components/SectionHeading.astro';
-import { links } from '../data/config';
+// contact.astro - Contact page using the editorial-band system.
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionIndexLayer from "../components/SectionIndexLayer.astro";
+import { links } from "../data/config";
 
-const contactLink = links.find((link) => link.id === 'contact');
+const contactLink = links.find((link) => link.id === "contact");
+
+const sectionMapItems = [
+  { label: "EMAIL" },
+  { label: "SOCIAL" },
+  { label: "SUPPORT" },
+];
 ---
 
-<BaseLayout title="Contact | Rob Pins" description="Contact Rob Pins.">
-  <div class="mx-auto flex max-w-3xl flex-col gap-10 px-6 py-20">
-    <a class="btn btn-ghost" href="/">Back to home</a>
+<BaseLayout title="Contact — Robgrappler" description="Contact Robgrappler.">
+  <div class="page-shell">
+    <a class="page-backlink" href="/">Back to Matroom</a>
 
-    <section class="flex flex-col gap-6">
-      <SectionHeading title="CONTACT" subtitle="Email and collaboration inquiries." />
-      <div class="link-card card card-body flex flex-col gap-4">
-        <h2 class="text-lg font-normal text-white">Email</h2>
-        <p class="text-sm text-slate-400">
-          Reach out for collaborations, press, or general questions.
+    <header class="page-header">
+      <div class="page-eyebrow">Direct Contact</div>
+      <h1 class="page-title">Contact</h1>
+      <p class="page-lead">
+        For collaborations, press, partnership ideas, or direct questions that
+        do not belong in public channels.
+      </p>
+    </header>
+
+    <SectionIndexLayer items={sectionMapItems}>
+      <div class="content-band">
+        <span class="panel-kicker">Primary Line</span>
+        <h2 class="band-heading">Email</h2>
+        <p class="panel-copy" style="margin-top: 0.75rem;">
+          Keep it concise. Include enough context to understand the ask, the
+          timeline, and whether this is editorial, business, or production.
         </p>
         {contactLink && (
-          <a class="btn btn-primary w-fit" href={contactLink.href}>
-            {contactLink.cta ?? 'EMAIL'}
-          </a>
+          <div class="inline-link-list" style="margin-top: 1.25rem;">
+            <a href={contactLink.href}>
+              {contactLink.cta ?? "Email"}
+            </a>
+          </div>
         )}
       </div>
-      <div class="text-sm text-slate-500">
-        Optional form support can be added later as needed.
+
+      <div class="content-band">
+        <span class="panel-kicker">Alternative Routes</span>
+        <ul class="bullet-list" style="margin-top: 1rem;">
+          <li>Use support if the goal is simply to contribute or help out.</li>
+          <li>Use community channels for public conversation and updates.</li>
+          <li>Use referrals only if you are after tools, credits, or offers.</li>
+        </ul>
+        <div class="inline-link-list" style="margin-top: 1.25rem;">
+          <a href="/support">Support</a>
+          <a href="/referrals">Deals & Gear</a>
+        </div>
       </div>
-    </section>
+    </SectionIndexLayer>
   </div>
 </BaseLayout>
