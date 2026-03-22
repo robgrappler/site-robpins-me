@@ -1,7 +1,7 @@
 ---
 label: "Breakdown"
 description: "Short notes on grappling systems, releases, and workflow signal."
-url: "/breakdown"
+url: "https://robgrappler.io/blog/?lang=en"
 order: 3
 bentoSize: "small"
 style: "mesh"
