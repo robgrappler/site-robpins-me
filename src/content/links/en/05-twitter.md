@@ -1,9 +1,10 @@
 ---
 label: "X / Twitter"
-description: "Live Sessions, Promo Codes & tech thoughts."
+description: "Live updates, release notes, promo drops, and sharp public notes."
 url: "https://x.com/robgrappler"
 order: 5
 bentoSize: "small"
-style: "glass"           # Frosted social media look
+style: "glass"
 icon: "TW"
+image: "/images/featured/alphavsrooki2.avif"
 ---

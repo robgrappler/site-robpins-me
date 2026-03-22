@@ -1,9 +1,10 @@
 ---
 label: "Community"
-description: "Free Telegram group. No fluff. Just grappling."
+description: "Telegram first, with social touchpoints for the public-side conversation."
 url: "https://t.me/joinrobsfreetg"
 order: 8
 bentoSize: "small"
-style: "default"         # Standard community feel
+style: "default"
 icon: "TG"
+image: "/images/featured/alphavsrooki4.avif"
 ---

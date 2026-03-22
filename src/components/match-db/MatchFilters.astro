@@ -83,6 +83,10 @@ const { sources, years, total } = Astro.props;
         applyFilters();
     };
 
-    initMatchFilters();
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initMatchFilters);
+    } else {
+        initMatchFilters();
+    }
     document.addEventListener("astro:after-swap", initMatchFilters);
 </script>

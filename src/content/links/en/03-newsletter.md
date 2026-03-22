@@ -1,9 +1,10 @@
 ---
-label: "The Breakdown"
-description: "Weekly notes. No spam. Just signal."
+label: "Breakdown"
+description: "Short notes on grappling systems, releases, and workflow signal."
 url: "/breakdown"
 order: 3
-bentoSize: "small" # Spans 1 col
-style: "mesh"           # Spotlight gradient for newsletter
-icon: "NW"
+bentoSize: "small"
+style: "mesh"
+icon: "BD"
+image: "/images/featured/memfight-part1-thumbnail.jpg"
 ---

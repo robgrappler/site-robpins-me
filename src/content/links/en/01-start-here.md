@@ -1,9 +1,10 @@
 ---
 label: "Start Here"
-description: "Pick a lane. Watch, explore the archive, or read the breakdown."
+description: "Choose the cleanest way in: essentials, archive, or weekly notes."
 url: "/start"
 order: 1
-bentoSize: "small"      # Standard square
-style: "accent"           # Gold Border to draw the eye
-icon: "ST"              # Renders as "ST"
+bentoSize: "small"
+style: "accent"
+icon: "ST"
+image: "/images/ag-site-cover.png"
 ---

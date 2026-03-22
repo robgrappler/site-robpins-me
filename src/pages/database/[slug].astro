@@ -1,4 +1,5 @@
 ---
+// [slug].astro - Match detail page kept data-compatible while adopting the new archive visual language.
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
 import VideoPlayer from "../../components/match-db/VideoPlayer.astro";
@@ -29,8 +30,14 @@ const thumbStyle = data.thumb
 
 <BaseLayout title={`${data.titleEn} — Match DB`} description={data.descEn}>
   <div class="match-db-page">
-    <div class="match-db-shell">
-      <a class="match-db-back" href="/database">Back to Database</a>
+    <div class="page-shell">
+      <a class="page-backlink" href="/database">Back to Database</a>
+
+      <header class="page-header" style="margin-bottom: 2rem;">
+        <div class="page-eyebrow">Archive Detail</div>
+        <h1 class="page-title">{data.titleEn}</h1>
+        <p class="page-lead">{data.descEn}</p>
+      </header>
 
       <div class="match-db-detail">
         <section class="match-db-detail-card">
@@ -44,14 +51,20 @@ const thumbStyle = data.thumb
               />
             )
           }
+
           <div class="match-db-detail-body">
             <span class="match-db-eyebrow">{data.source}</span>
-            <h1 class="match-db-title">{data.titleEn}</h1>
-            <p class="match-db-subtitle">{data.descEn}</p>
             <div class="match-db-meta">
               <span>{displayDate}</span>
               <span>{data.duration}</span>
             </div>
+            {
+              data.tags && data.tags.length > 0 && (
+                <div class="match-db-tag-row">
+                  {data.tags.map((tag) => <span class="match-db-chip">{tag.en}</span>)}
+                </div>
+              )
+            }
             <div class="match-db-detail-actions">
               {
                 data.href && (
@@ -72,8 +85,8 @@ const thumbStyle = data.thumb
 
         <section class="match-db-detail-card">
           <div class="match-db-detail-body">
-            <h2 class="match-db-title-text">Notes</h2>
-            <div class="match-db-desc">
+            <span class="match-db-eyebrow">Notes</span>
+            <div class="match-db-richtext">
               <Content />
             </div>
           </div>
