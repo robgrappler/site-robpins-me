@@ -1,334 +1,280 @@
 ---
-// DIRTY HUB - Spanish Version
+// es/index.astro - Spanish gateway. Same cinematic system as EN; all secondary links point to EN routes.
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import BentoCard from "../../components/BentoCard.astro";
-import TileLink from "../../components/TileLink.astro";
 import { getCollection, type CollectionEntry } from "astro:content";
 import { featuredMatch } from "../../data/featured-match";
 import LanguagePicker from "../../components/LanguagePicker.astro";
-import { ui, useTranslations } from "../../i18n/ui";
 
-const lang = "es";
-const t = useTranslations(lang);
+type LinkEntry = CollectionEntry<"links">;
 
-// Fetch all links and sort by 'order', filtering for 'es'
-const links = (await getCollection("links"))
-    .filter((entry) => entry.slug.startsWith("es/"))
-    .sort(
-        (a: CollectionEntry<"links">, b: CollectionEntry<"links">) =>
-            a.data.order - b.data.order,
-    );
+// Reuse EN link entries — images and data are shared; only labels/subtitles are translated below.
+const allLinks = (await getCollection("links")).filter((entry) =>
+  entry.slug.startsWith("en/"),
+);
 
-// Dynamic Featured Match logic
+const linkMap = new Map(allLinks.map((entry) => [entry.slug, entry]));
+
+const getLink = (slug: string) => {
+  const entry = linkMap.get(slug);
+  if (!entry) throw new Error(`Missing link entry: ${slug}`);
+  return entry;
+};
+
 const allMatches = await getCollection("matches");
 const latestDbFeatured = allMatches
-    .filter((m) => m.data.featured)
-    .sort((a, b) => {
-        const dateA = new Date(a.data.uploadDate || 0).getTime();
-        const dateB = new Date(b.data.uploadDate || 0).getTime();
-        return dateB - dateA;
-    })[0];
+  .filter((m) => m.data.featured)
+  .sort((a, b) => {
+    const dateA = new Date(a.data.uploadDate || 0).getTime();
+    const dateB = new Date(b.data.uploadDate || 0).getTime();
+    return dateB - dateA;
+  })[0];
 
-// Merge DB match data into the featuredMatch shape if exists
-// Note: We use the English title/desc for the featured match as the user said
-// "only of the main cards... just the titles and descriptions of those main cards"
-// The featured match is a specific content piece, usually same title.
-// If needed we could use titleEs/descEs if they exist in schema, but for now we follow the pattern.
 const activeFeatured = latestDbFeatured
-    ? {
-          ...featuredMatch,
-          title: latestDbFeatured.data.titleEs || latestDbFeatured.data.titleEn,
-          subtitle:
-              latestDbFeatured.data.descEs || latestDbFeatured.data.descEn,
-          href:
-              latestDbFeatured.data.href ||
-              `/database/${latestDbFeatured.slug}`,
-          duration: latestDbFeatured.data.duration,
-          thumb: latestDbFeatured.data.thumb,
-          tag: latestDbFeatured.data.badge?.es || "Destacado",
-      }
-    : {
-          ...featuredMatch,
-          tag: "Destacado", // Fallback if using default static match
-      };
+  ? {
+      ...featuredMatch,
+      title: latestDbFeatured.data.titleEs || latestDbFeatured.data.titleEn,
+      subtitle: latestDbFeatured.data.descEs || latestDbFeatured.data.descEn,
+      href: latestDbFeatured.data.href || `/database/${latestDbFeatured.slug}`,
+      duration: latestDbFeatured.data.duration,
+      thumb: latestDbFeatured.data.thumb,
+    }
+  : featuredMatch;
+
+const navigationItems = [
+  {
+    label: "Empieza Aquí",
+    href: "/start",
+    image: getLink("en/01-start-here").data.image,
+    external: false,
+    subtitle: "Orientación",
+  },
+  {
+    label: "YouTube",
+    href: getLink("en/02-youtube").data.url,
+    image: getLink("en/02-youtube").data.image,
+    external: true,
+    subtitle: "Biblioteca de Video",
+  },
+  {
+    label: "Breakdown",
+    href: "https://robgrappler.io/blog/?lang=en",
+    image: getLink("en/03-newsletter").data.image,
+    external: true,
+    subtitle: "Notas Semanales",
+  },
+  {
+    label: "Combate Destacado",
+    href: activeFeatured.href,
+    image: activeFeatured.thumb,
+    external: activeFeatured.href.startsWith("http"),
+    subtitle: "Ver Ahora",
+  },
+  {
+    label: "Base de Datos",
+    href: "/database",
+    image: getLink("en/04-database").data.image,
+    external: false,
+    subtitle: "Archivo de Combates",
+  },
+  {
+    label: "The Vault",
+    href: getLink("en/07-vault").data.url,
+    image: getLink("en/07-vault").data.image,
+    external: true,
+    subtitle: "Acceso Premium",
+  },
+  {
+    label: "Redes Sociales",
+    href: "#social-links",
+    image: getLink("en/08-community").data.image,
+    external: false,
+    subtitle: "X • Instagram • Telegram",
+  },
+  {
+    label: "Apoya",
+    href: "/support",
+    image: getLink("en/11-support").data.image,
+    external: false,
+    subtitle: "Mantener el Impulso",
+  },
+];
+
+const socials = [
+  getLink("en/05-twitter"),
+  getLink("en/06-instagram"),
+  getLink("en/08-community"),
+  getLink("en/09-referrals"),
+];
 ---
 
-<BaseLayout title="Robgrappler's | Digital Garden">
-    <div class="mx-auto min-h-screen max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        <header class="mb-12 flex flex-col gap-2">
-            <span
-                class="font-sans text-xs font-normal uppercase tracking-[0.2em] text-sub-grey"
-            >
-                Digital Matroom v2.0
-            </span>
-            <div class="flex items-start justify-between">
-                <h1
-                    class="font-b612 text-5xl font-bold tracking-tight text-white sm:text-7xl"
-                >
-                    {t("hero.title")}
-                </h1>
-                <LanguagePicker currentLang="es" />
-            </div>
-            <p class="max-w-xl font-sans text-lg text-sub-paper/80">
-                {t("hero.subtitle")}
-            </p>
-        </header>
-
-        <main
-            class="grid grid-cols-2 gap-3 md:grid-cols-3 md:auto-rows-[190px] md:gap-4 lg:auto-rows-[210px]"
-        >
-            <!-- Row 1: Essentials (tall, 2 rows) | Start Here | Breakdown -->
-            <BentoCard
-                link={links.find((l) => l.slug.endsWith("02-youtube"))!}
-            />
-            <BentoCard
-                link={links.find((l) => l.slug.endsWith("01-start-here"))!}
-            />
-            <BentoCard
-                link={links.find((l) => l.slug.endsWith("03-newsletter"))!}
-            />
-
-            <!-- FEATURED MATCH CARD: Takes 2 cols and 2 rows -->
-            <TileLink
-                href={activeFeatured.href}
-                class="order-first md:order-none col-span-2 min-h-[300px] h-full rounded-3xl bg-[#1a1a1a] motion-safe:duration-300 motion-safe:hover:scale-[1.01] hover:shadow-[#F5C265]/10 md:col-span-2 md:row-span-2"
-                aria-label={`Watch featured match: ${activeFeatured.title}`}
-                tilt
-            >
-                <!-- Background Image/Gradient -->
-                <div class="absolute inset-0 z-0">
-                    <img
-                        src={activeFeatured.thumb}
-                        data-thumbs={JSON.stringify(
-                            activeFeatured.thumbs || [],
-                        )}
-                        alt=""
-                        class="featured-thumb h-full w-full object-cover opacity-95 motion-safe:transition-transform motion-safe:duration-700 motion-safe:group-hover:scale-105 group-hover:opacity-80"
-                    />
-                    <div
-                        class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"
-                    >
-                    </div>
-                </div>
-
-                <!-- Content -->
-                <div class="relative z-10 flex h-full flex-col justify-between">
-                    <span
-                        class="absolute bottom-3 right-3 md:bottom-6 md:right-6 z-20 w-fit rounded-lg bg-[#F5C265] px-3 py-1.5 md:px-5 md:py-2.5 font-sans text-[10px] md:text-xs font-normal uppercase tracking-widest text-[#0b0b0e] motion-safe:transition-all hover:bg-white hover:text-black hover:shadow-[0_0_20px_rgba(245,194,101,0.4)] motion-safe:hover:scale-105 group-focus-visible:ring-2 group-focus-visible:ring-main-gold/70 group-focus-visible:ring-offset-2 group-focus-visible:ring-offset-main-bg"
-                    >
-                        Ver Ahora ↗
-                    </span>
-                    <div class="flex items-start justify-between">
-                        <span
-                            class="inline-block rounded-full border border-[#F5C265]/30 bg-[#F5C265]/10 px-3 py-1 text-[10px] font-normal uppercase tracking-wider text-[#F5C265] backdrop-blur-md"
-                        >
-                            {activeFeatured.tag}
-                        </span>
-                    </div>
-
-                    <div class="space-y-4">
-                        <div>
-                            <h2
-                                class="hidden md:block font-bebas text-4xl font-bold leading-none text-white transition-colors sm:text-5xl md:text-6xl"
-                            >
-                                {activeFeatured.title}
-                            </h2>
-                            <p
-                                class="hidden md:block mt-2 font-sans text-sm font-normal text-gray-300"
-                            >
-                                {activeFeatured.subtitle}
-                            </p>
-                        </div>
-
-                        <div
-                            class="flex items-center gap-4 text-xs font-normal text-gray-400"
-                        >
-                            <div class="flex items-center gap-1.5">
-                                <svg
-                                    class="h-4 w-4 text-[#F5C265]"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                >
-                                    <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                                    ></path>
-                                </svg>
-                                <span>{activeFeatured.duration}</span>
-                            </div>
-                            <span class="text-gray-600">•</span>
-                            <div class="flex items-center gap-1.5">
-                                <svg
-                                    class="h-4 w-4 text-[#F5C265]"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                >
-                                    <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                                    ></path>
-                                    <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                                    ></path>
-                                </svg>
-                                <span>{activeFeatured.price}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </TileLink>
-
-            <!-- Match DB fills column 1 of row 3 -->
-            <BentoCard
-                link={links.find((l) => l.slug.endsWith("04-database"))!}
-            />
-
-            <!-- Row 4: The Vault -->
-            <BentoCard link={links.find((l) => l.slug.endsWith("07-vault"))!} />
-
-            <!-- Row 5: X/Twitter | Instagram | Community -->
-            <BentoCard
-                link={links.find((l) => l.slug.endsWith("05-twitter"))!}
-            />
-            <BentoCard
-                link={links.find((l) => l.slug.endsWith("06-instagram"))!}
-            />
-            <BentoCard
-                link={links.find((l) => l.slug.endsWith("08-community"))!}
-            />
-
-            <!-- Row 6: Deals & Gear -->
-            <BentoCard
-                link={links.find((l) => l.slug.endsWith("09-referrals"))!}
-            />
-        </main>
-
-        <footer
-            class="mt-20 border-t border-main-surface pt-8 text-center sm:text-left"
-        >
-            <p
-                class="font-sans text-xs text-sub-grey uppercase tracking-widest"
-            >
-                © {new Date().getFullYear()} Robgrappler. Todos los derechos reservados.
-                <span class="mx-2 opacity-50">|</span>
-                Built in the mat by <a
-                    href="https://nodoalfa.com"
-                    class="transition-colors hover:text-[#F5C265]">Nodo Alfa</a
-                >
-            </p>
-        </footer>
+<BaseLayout
+  title="Robgrappler | Sala de Mat Digital"
+  description="El hub público para combates archivados, notas semanales, lanzamientos y las rutas más directas al ecosistema Robgrappler."
+>
+  <div class="gateway-page">
+    <div class="gateway-backdrop" aria-hidden="true">
+      <div
+        class="gateway-backdrop-image"
+        data-gateway-backdrop
+        style={`background-image:url('${navigationItems[0].image}');`}
+      >
+      </div>
     </div>
+
+    <div class="gateway-shell">
+      <div class="gateway-topbar">
+        <div class="gateway-lockup">Sala de Mat Digital v3.0</div>
+        <LanguagePicker currentLang="es" />
+      </div>
+
+      <div class="gateway-layout">
+        <section class="gateway-hero">
+          <div class="page-eyebrow">Sistema de Archivo Robgrappler</div>
+          <h1 class="gateway-brand">
+            <span class="gateway-brand-mark">Robgrappler</span>
+          </h1>
+          <p class="gateway-intro">
+            El hub público para combates archivados, notas afiladas, lanzamientos
+            pagos y las rutas más limpias al resto del ecosistema.
+          </p>
+
+          <nav class="gateway-nav" aria-label="Destinos principales">
+            {
+              navigationItems.map(
+                ({ label, href, image, external, subtitle }, index) => {
+                  const isFeaturedRow = label === "Combate Destacado";
+                  const navKind = external
+                    ? "external"
+                    : href.startsWith("#")
+                      ? "anchor"
+                      : "internal";
+
+                  return (
+                    <a
+                      href={href}
+                      target={external ? "_blank" : undefined}
+                      rel={external ? "noreferrer noopener" : undefined}
+                      class={`gateway-link ${index === 0 ? "is-active" : ""} ${isFeaturedRow ? "is-featured-spotlight" : ""}`}
+                      data-gateway-item
+                      data-bg={image}
+                      data-nav-kind={navKind}
+                    >
+                      <span class="gateway-index">
+                        {String(index + 1).padStart(2, "0")}
+                      </span>
+                      <span class="gateway-title">{label}</span>
+                      <span class="gateway-subtitle">{subtitle}</span>
+                    </a>
+                  );
+                },
+              )
+            }
+          </nav>
+
+          <div class="inline-link-list" id="social-links">
+            {
+              socials.map((entry) => {
+                const isExternal = entry.data.url.startsWith("http");
+                return (
+                  <a
+                    href={entry.data.url}
+                    target={isExternal ? "_blank" : undefined}
+                    rel={isExternal ? "noreferrer noopener" : undefined}
+                  >
+                    {entry.data.label}
+                  </a>
+                );
+              })
+            }
+            <a href="/contact">Contacto</a>
+          </div>
+
+          <footer class="site-footer">
+            © {new Date().getFullYear()} Robgrappler. Construido para la señal,
+            no el ruido.
+          </footer>
+        </section>
+      </div>
+    </div>
+  </div>
 </BaseLayout>
 
-<style>
-    @keyframes fade-in-up {
-        0% {
-            opacity: 0;
-            transform: translateY(20px);
-        }
-        100% {
-            opacity: 1;
-            transform: translateY(0);
-        }
+<script is:inline>
+  const initGatewayBackdrop = () => {
+    const page = document.querySelector(".gateway-page");
+    const nav = document.querySelector(".gateway-nav");
+    const backdrop = document.querySelector("[data-gateway-backdrop]");
+    const items = Array.from(document.querySelectorAll("[data-gateway-item]"));
+    if (!page || !nav || !backdrop || !items.length) return;
+
+    let handoffTimer;
+
+    const setActive = (item, options = {}) => {
+      const { force = false } = options;
+      if (!item || (!force && nav.classList.contains("is-handoff"))) return;
+      const image = item?.getAttribute("data-bg");
+      if (image) backdrop.style.backgroundImage = `url('${image}')`;
+      items.forEach((node) => node.classList.remove("is-active"));
+      item?.classList.add("is-active");
+    };
+
+    const clearCommitState = () => {
+      window.clearTimeout(handoffTimer);
+      nav.classList.remove("is-handoff");
+      page.classList.remove("is-handoff");
+      items.forEach((node) => node.classList.remove("is-committing"));
+    };
+
+    const resetGatewayState = () => {
+      clearCommitState();
+      setActive(items[0], { force: true });
+    };
+
+    if (nav.dataset.gatewayBound === "true") {
+      resetGatewayState();
+      return;
     }
 
-    .animate-fade-in-up {
-        animation: fade-in-up 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both;
-    }
-</style>
+    nav.dataset.gatewayBound = "true";
 
-<script>
-    function initRandomThumb() {
-        const img = document.querySelector(
-            ".featured-thumb",
-        ) as HTMLImageElement;
-        if (!img) return;
+    const isModifiedClick = (event) =>
+      event.defaultPrevented ||
+      event.button !== 0 ||
+      event.metaKey ||
+      event.ctrlKey ||
+      event.shiftKey ||
+      event.altKey;
 
-        const dataThumbs = img.getAttribute("data-thumbs");
-        if (!dataThumbs) return;
+    const beginHandoff = (item, href) => {
+      if (!href) return;
+      clearCommitState();
+      setActive(item, { force: true });
+      nav.classList.add("is-handoff");
+      page.classList.add("is-handoff");
+      item.classList.add("is-committing");
+      handoffTimer = window.setTimeout(() => {
+        window.location.assign(href);
+      }, 240);
+    };
 
-        try {
-            const thumbs = JSON.parse(dataThumbs);
-            if (Array.isArray(thumbs) && thumbs.length > 0) {
-                const randomThumb =
-                    thumbs[Math.floor(Math.random() * thumbs.length)];
-
-                if (randomThumb && randomThumb !== img.getAttribute("src")) {
-                    img.src = randomThumb;
-                }
-            }
-        } catch (e) {
-            console.error("Failed to parse thumbs", e);
-        }
-    }
-
-    function initObserver() {
-        const observerOptions = {
-            root: null,
-            rootMargin: "50px",
-            threshold: 0.1,
-        };
-
-        const prefersReducedMotion = window.matchMedia(
-            "(prefers-reduced-motion: reduce)",
-        ).matches;
-
-        if (prefersReducedMotion) {
-            document.querySelectorAll(".observer-fade-in-up").forEach((el) => {
-                el.classList.remove("opacity-0");
-            });
-            return;
-        }
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry, index) => {
-                if (entry.isIntersecting) {
-                    const target = entry.target as HTMLElement;
-                    target.style.animationDelay = `${index * 100}ms`;
-                    target.classList.remove("opacity-0");
-                    target.classList.add("animate-fade-in-up");
-                    observer.unobserve(target);
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll(".observer-fade-in-up").forEach((el) => {
-            observer.observe(el);
-        });
-    }
-
-    function initSpotlight() {
-        const cards = document.querySelectorAll(".spotlight-card");
-        cards.forEach((element) => {
-            const card = element as HTMLElement;
-            card.addEventListener("mousemove", (e: MouseEvent) => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                card.style.setProperty("--x", `${x}px`);
-                card.style.setProperty("--y", `${y}px`);
-            });
-        });
-    }
-
-    // Run on initial load
-    initObserver();
-    initRandomThumb();
-    initSpotlight();
-
-    // Run on view transitions (Astro)
-    document.addEventListener("astro:after-swap", () => {
-        initObserver();
-        initRandomThumb();
-        initSpotlight();
+    items.forEach((item) => {
+      item.addEventListener("mouseenter", () => setActive(item));
+      item.addEventListener("focus", () => setActive(item));
+      item.addEventListener("click", (event) => {
+        if (isModifiedClick(event)) return;
+        const navKind = item.getAttribute("data-nav-kind");
+        const href = item.getAttribute("href");
+        if (navKind !== "internal" || !href) return;
+        event.preventDefault();
+        beginHandoff(item, href);
+      });
     });
+
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "visible") resetGatewayState();
+    });
+  };
+
+  initGatewayBackdrop();
+  document.addEventListener("astro:after-swap", initGatewayBackdrop);
 </script>
