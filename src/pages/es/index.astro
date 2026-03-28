@@ -137,71 +137,54 @@ const socials = [
 
       <div class="gateway-layout">
         <section class="gateway-hero">
-          <div class="page-eyebrow">Sistema de Archivo Robgrappler</div>
-          <h1 class="gateway-brand">
-            <span class="gateway-brand-mark">Robgrappler</span>
-          </h1>
-          <p class="gateway-intro">
-            El hub público para combates archivados, notas afiladas, lanzamientos
-            pagos y las rutas más limpias al resto del ecosistema.
-          </p>
-
-          <nav class="gateway-nav" aria-label="Destinos principales">
-            {
-              navigationItems.map(
-                ({ label, href, image, external, subtitle, vip }, index) => {
-                  const isFeaturedRow = label === "Combate Destacado";
-                  const isVipRow = vip === true;
-                  const navKind = external
-                    ? "external"
-                    : href.startsWith("#")
-                      ? "anchor"
-                      : "internal";
-
-                  return (
-                    <a
-                      href={href}
-                      target={external ? "_blank" : undefined}
-                      rel={external ? "noreferrer noopener" : undefined}
-                      class={`gateway-link ${index === 0 ? "is-active" : ""} ${isFeaturedRow ? "is-featured-spotlight" : ""} ${isVipRow ? "is-vip-highlight" : ""}`}
-                      data-gateway-item
-                      data-bg={image}
-                      data-nav-kind={navKind}
-                    >
-                      <span class="gateway-index">
-                        {String(index + 1).padStart(2, "0")}
-                      </span>
-                      <span class="gateway-title">{label}</span>
-                      <span class="gateway-subtitle">{subtitle}</span>
-                    </a>
-                  );
-                },
-              )
-            }
-          </nav>
-
-          <div class="inline-link-list" id="social-links">
-            {
-              socials.map((entry) => {
-                const isExternal = entry.data.url.startsWith("http");
-                return (
-                  <a
-                    href={entry.data.url}
-                    target={isExternal ? "_blank" : undefined}
-                    rel={isExternal ? "noreferrer noopener" : undefined}
-                  >
-                    {entry.data.label}
-                  </a>
-                );
-              })
-            }
-            <a href="/contact">Contacto</a>
+          <div class="gateway-header">
+            <h1 class="gateway-brand">
+              <span class="gateway-brand-mark">Robgrappler</span>
+            </h1>
+            <p class="gateway-intro">
+              Combates. Análisis. Todo el ecosistema.
+            </p>
           </div>
 
-          <footer class="site-footer">
-            © {new Date().getFullYear()} Robgrappler. Construido para la señal,
-            no el ruido.
-          </footer>
+          <div class="gateway-scroll-area">
+            <nav class="gateway-nav" aria-label="Destinos principales">
+              {
+                navigationItems.map(
+                  ({ label, href, image, external, subtitle, vip }, index) => {
+                    const isFeaturedRow = label === "Combate Destacado";
+                    const isVipRow = vip === true;
+                    const navKind = external
+                      ? "external"
+                      : href.startsWith("#")
+                        ? "anchor"
+                        : "internal";
+
+                    return (
+                      <a
+                        href={href}
+                        target={external ? "_blank" : undefined}
+                        rel={external ? "noreferrer noopener" : undefined}
+                        class={`gateway-link ${index === 0 ? "is-active" : ""} ${isFeaturedRow ? "is-featured-spotlight" : ""} ${isVipRow ? "is-vip-highlight" : ""}`}
+                        data-gateway-item
+                        data-bg={image}
+                        data-nav-kind={navKind}
+                      >
+                        <span class="gateway-index">
+                          {String(index + 1).padStart(2, "0")}
+                        </span>
+                        <span class="gateway-title">{label}</span>
+                        <span class="gateway-subtitle">{subtitle}</span>
+                      </a>
+                    );
+                  },
+                )
+              }
+            </nav>
+
+            <footer class="site-footer">
+              © {new Date().getFullYear()} Robgrappler
+            </footer>
+          </div>
         </section>
       </div>
     </div>
@@ -238,6 +221,26 @@ const socials = [
       clearCommitState();
       setActive(items[0], { force: true });
     };
+
+    // Scroll-collapse: add .is-scrolled when user scrolls down, remove only at top
+    const scrollArea = document.querySelector(".gateway-scroll-area");
+    if (scrollArea && !scrollArea.dataset.scrollBound) {
+      scrollArea.dataset.scrollBound = "true";
+      let ticking = false;
+      scrollArea.addEventListener("scroll", () => {
+        if (!ticking) {
+          requestAnimationFrame(() => {
+            if (scrollArea.scrollTop > 16) {
+              page.classList.add("is-scrolled");
+            } else if (scrollArea.scrollTop === 0) {
+              page.classList.remove("is-scrolled");
+            }
+            ticking = false;
+          });
+          ticking = true;
+        }
+      });
+    }
 
     if (nav.dataset.gatewayBound === "true") {
       resetGatewayState();
