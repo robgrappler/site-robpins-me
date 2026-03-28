@@ -6,5 +6,5 @@ order: 7
 bentoSize: "small"
 style: "terminal"
 icon: "VT"
-image: "/images/featured/unfinished-he-didnt-tap.png"
+image: "/images/featured/unfinished-thumbnail.png"
 ---

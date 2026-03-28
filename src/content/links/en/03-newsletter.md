@@ -6,5 +6,5 @@ order: 3
 bentoSize: "small"
 style: "mesh"
 icon: "BD"
-image: "/images/featured/memfight-part1-thumbnail.jpg"
+image: "/images/featured/alphavsrooki3.avif"
 ---
