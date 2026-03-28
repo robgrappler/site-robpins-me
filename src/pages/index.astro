@@ -50,6 +50,14 @@ const navigationItems = [
     subtitle: "Orientation",
   },
   {
+    label: "The Inner Circle",
+    href: getLink("en/10-vip").data.url,
+    image: getLink("en/10-vip").data.image,
+    external: true,
+    subtitle: "Rob's Corner on Telegram",
+    vip: true,
+  },
+  {
     label: getLink("en/02-youtube").data.label,
     href: getLink("en/02-youtube").data.url,
     image: getLink("en/02-youtube").data.image,
@@ -139,8 +147,9 @@ const socials = [
 
           <nav class="gateway-nav" aria-label="Primary destinations">
             {
-              navigationItems.map(({ label, href, image, external, subtitle }, index) => {
+              navigationItems.map(({ label, href, image, external, subtitle, vip }, index) => {
                 const isFeaturedRow = label === "Featured Match";
+                const isVipRow = vip === true;
                 const navKind = external ? "external" : href.startsWith("#") ? "anchor" : "internal";
 
                 return (
@@ -148,7 +157,7 @@ const socials = [
                     href={href}
                     target={external ? "_blank" : undefined}
                     rel={external ? "noreferrer noopener" : undefined}
-                    class={`gateway-link ${index === 0 ? "is-active" : ""} ${isFeaturedRow ? "is-featured-spotlight" : ""}`}
+                    class={`gateway-link ${index === 0 ? "is-active" : ""} ${isFeaturedRow ? "is-featured-spotlight" : ""} ${isVipRow ? "is-vip-highlight" : ""}`}
                     data-gateway-item
                     data-bg={image}
                     data-nav-kind={navKind}
