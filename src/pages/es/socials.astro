@@ -1,0 +1,99 @@
+---
+// socials.astro - Página de redes sociales con el sistema visual cinematográfico.
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import LanguagePicker from "../../components/LanguagePicker.astro";
+import SectionIndexLayer from "../../components/SectionIndexLayer.astro";
+
+const title = "Redes Sociales";
+const description = "Todos los canales sociales de Robgrappler en un solo lugar.";
+
+const sectionMapItems = [
+  { label: "X / TWITTER" },
+  { label: "YOUTUBE" },
+  { label: "INSTAGRAM" },
+  { label: "TIKTOK" },
+  { label: "TELEGRAM" },
+];
+
+const channels = [
+  {
+    kicker: "Principal",
+    title: "X / Twitter",
+    handle: "@robgrappler",
+    note: "Actualizaciones en vivo, notas de lanzamiento, promos y comentarios públicos.",
+    url: "https://x.com/robgrappler",
+    cta: "Seguir en X",
+  },
+  {
+    kicker: "Video",
+    title: "YouTube",
+    handle: "@robgrappl3r",
+    note: "Combates completos, análisis y contenido largo desde el mat.",
+    url: "https://youtube.com/@robgrappl3r",
+    cta: "Suscribirse en YouTube",
+  },
+  {
+    kicker: "Visual",
+    title: "Instagram",
+    handle: "@rob.grappler",
+    note: "Clips, momentos detrás de cámaras y actualizaciones visuales desde el mat.",
+    url: "https://instagram.com/rob.grappler",
+    cta: "Seguir en Instagram",
+  },
+  {
+    kicker: "Formato corto",
+    title: "TikTok",
+    handle: "@rob.grappler",
+    note: "Clips rápidos, highlights y momentos del mat en formato vertical.",
+    url: "https://tiktok.com/@rob.grappler",
+    cta: "Seguir en TikTok",
+  },
+  {
+    kicker: "Comunidad",
+    title: "Telegram",
+    handle: "Canal Público",
+    note: "Telegram primero, con puntos de contacto social para la conversación pública.",
+    url: "https://t.me/joinrobsfreetg",
+    cta: "Unirse en Telegram",
+  },
+];
+---
+
+<BaseLayout title={title} description={description} image="/images/featured/alphavsrooki4.avif">
+  <div class="page-shell">
+    <div class="gateway-topbar" style="margin-bottom: 1rem;">
+      <a class="page-backlink" href="/es/">Volver al Matroom</a>
+      <LanguagePicker currentLang="es" />
+    </div>
+
+    <header class="page-header">
+      <div class="page-eyebrow">Conectar</div>
+      <h1 class="page-title">{title}</h1>
+      <p class="page-lead">
+        Los canales públicos. Síguenos donde prefieras.
+      </p>
+    </header>
+
+    <SectionIndexLayer items={sectionMapItems}>
+      {channels.map((channel) => (
+        <div class="content-band">
+          <span class="panel-kicker">{channel.kicker}</span>
+          <h2 class="band-heading">{channel.title}</h2>
+          <p class="panel-copy" style="margin-top: 0.25rem; opacity: 0.55; font-size: 0.85rem; letter-spacing: 0.12em; text-transform: uppercase;">{channel.handle}</p>
+          <p class="panel-copy" style="margin-top: 0.75rem;">{channel.note}</p>
+
+          <div class="action-row" style="margin-top: 1.25rem;">
+            <a
+              class="action-pill primary"
+              href={channel.url}
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              {channel.cta}
+            </a>
+          </div>
+        </div>
+      ))}
+    </SectionIndexLayer>
+  </div>
+</BaseLayout>

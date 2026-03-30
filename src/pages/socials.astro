@@ -1,0 +1,99 @@
+---
+// socials.astro - Social links hub matching the cinematic visual system.
+import BaseLayout from "../layouts/BaseLayout.astro";
+import LanguagePicker from "../components/LanguagePicker.astro";
+import SectionIndexLayer from "../components/SectionIndexLayer.astro";
+
+const title = "Socials";
+const description = "All of Robgrappler's social channels in one place.";
+
+const sectionMapItems = [
+  { label: "X / TWITTER" },
+  { label: "YOUTUBE" },
+  { label: "INSTAGRAM" },
+  { label: "TIKTOK" },
+  { label: "TELEGRAM" },
+];
+
+const channels = [
+  {
+    kicker: "Primary",
+    title: "X / Twitter",
+    handle: "@robgrappler",
+    note: "Live updates, release notes, promo drops, and sharp public notes.",
+    url: "https://x.com/robgrappler",
+    cta: "Follow on X",
+  },
+  {
+    kicker: "Video",
+    title: "YouTube",
+    handle: "@robgrappl3r",
+    note: "Full matches, breakdowns, and long-form content from the mat.",
+    url: "https://youtube.com/@robgrappl3r",
+    cta: "Subscribe on YouTube",
+  },
+  {
+    kicker: "Visual",
+    title: "Instagram",
+    handle: "@rob.grappler",
+    note: "Clips, behind-the-scenes moments, and visual updates from the mat.",
+    url: "https://instagram.com/rob.grappler",
+    cta: "Follow on Instagram",
+  },
+  {
+    kicker: "Short-form",
+    title: "TikTok",
+    handle: "@rob.grappler",
+    note: "Quick clips, highlights, and mat moments in vertical format.",
+    url: "https://tiktok.com/@rob.grappler",
+    cta: "Follow on TikTok",
+  },
+  {
+    kicker: "Community",
+    title: "Telegram",
+    handle: "Public Channel",
+    note: "Telegram first, with social touchpoints for the public-side conversation.",
+    url: "https://t.me/joinrobsfreetg",
+    cta: "Join on Telegram",
+  },
+];
+---
+
+<BaseLayout title={title} description={description} image="/images/featured/alphavsrooki4.avif">
+  <div class="page-shell">
+    <div class="gateway-topbar" style="margin-bottom: 1rem;">
+      <a class="page-backlink" href="/">Back to Matroom</a>
+      <LanguagePicker currentLang="en" />
+    </div>
+
+    <header class="page-header">
+      <div class="page-eyebrow">Connect</div>
+      <h1 class="page-title">{title}</h1>
+      <p class="page-lead">
+        The public-side channels. Follow where it fits.
+      </p>
+    </header>
+
+    <SectionIndexLayer items={sectionMapItems}>
+      {channels.map((channel) => (
+        <div class="content-band">
+          <span class="panel-kicker">{channel.kicker}</span>
+          <h2 class="band-heading">{channel.title}</h2>
+          <p class="panel-copy" style="margin-top: 0.25rem; opacity: 0.55; font-size: 0.85rem; letter-spacing: 0.12em; text-transform: uppercase;">{channel.handle}</p>
+          <p class="panel-copy" style="margin-top: 0.75rem;">{channel.note}</p>
+
+          <div class="action-row" style="margin-top: 1.25rem;">
+            <a
+              class="action-pill primary"
+              href={channel.url}
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              {channel.cta}
+            </a>
+          </div>
+        </div>
+      ))}
+    </SectionIndexLayer>
+  </div>
+</BaseLayout>
