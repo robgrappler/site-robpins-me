@@ -14,8 +14,8 @@ const ga4Id = import.meta.env.PUBLIC_GA4_ID;
 <!doctype html>
 <html lang={lang}>
   <head>
-    <!-- Google Tag Manager -->
-    <script is:inline>
+    <!-- Google Tag Manager / GA4 -->
+    <script is:inline define:vars={{ ga4Id }}>
       (function (w, d, s, l, i) {
         w[l] = w[l] || [];
         w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
@@ -25,12 +25,19 @@ const ga4Id = import.meta.env.PUBLIC_GA4_ID;
         j.async = true;
         j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
         f.parentNode.insertBefore(j, f);
+
+        if (ga4Id) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', ga4Id, { anonymize_ip: true });
+        }
       })(window, document, "script", "dataLayer", "GTM-NGDV5T9P");
     </script>
     <!-- End Google Tag Manager -->
 
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content={description} />
     <title>{title}</title>
 
@@ -47,27 +54,6 @@ const ga4Id = import.meta.env.PUBLIC_GA4_ID;
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={new URL(image, Astro.site)} />
-
-    {/* Google Analytics 4 */}
-    {
-      ga4Id && (
-        <>
-          <link
-            rel="preconnect"
-            href="https://www.googletagmanager.com"
-            crossorigin
-          />
-          <script
-            async
-            src={`https://www.googletagmanager.com/gtag/js?id=${ga4Id}`}
-          />
-          <script
-            is:inline
-            set:html={`window.dataLayer = window.dataLayer || [];\nfunction gtag(){dataLayer.push(arguments);}\ngtag('js', new Date());\ngtag('config', '${ga4Id}', { anonymize_ip: true });`}
-          />
-        </>
-      )
-    }
   </head>
   <body class="bg-ink-900">
     <!-- Google Tag Manager (noscript) -->

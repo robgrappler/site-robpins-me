@@ -45,7 +45,15 @@ const thumbStyle = data.thumb
     data-search={searchable}
 >
     <a class="match-db-card-link" href={cardHref}>
-        <div class="match-db-thumb" style={thumbStyle}>
+        <div class="match-db-thumb">
+            {data.thumb && (
+                <img 
+                    src={data.thumb} 
+                    alt={title} 
+                    loading="lazy" 
+                    class="match-db-thumb-img"
+                />
+            )}
             {
                 data.trailerUrl && (
                     <div class="match-db-play-indicator" aria-hidden="true">

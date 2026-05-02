@@ -37,7 +37,10 @@ const sectionMapItems = [
 <BaseLayout title={t("db.title")} description={t("db.subtitle")}>
   <div class="match-db-page">
     <div class="page-shell">
-      <a class="page-backlink" href="/">{t("db.back")}</a>
+      <div class="gateway-topbar" style="margin-bottom: 2rem;">
+        <a class="page-backlink" href="/">Back</a>
+        <LanguagePicker currentLang="en" />
+      </div>
 
       <header class="page-header">
         <div class="page-eyebrow">Archive Index</div>

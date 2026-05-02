@@ -11,3 +11,13 @@
   to = "https://robgrappler.io/blog/?lang=en"
   status = 301
   force = true
+
+[[redirects]]
+  from = "/social"
+  to = "/socials"
+  status = 301
+
+[[redirects]]
+  from = "/links"
+  to = "/socials"
+  status = 301

@@ -1,6 +1,7 @@
 ---
 // referrals.astro - Deals and gear directory styled with the editorial-band system.
 import BaseLayout from "../layouts/BaseLayout.astro";
+import LanguagePicker from "../components/LanguagePicker.astro";
 import SectionIndexLayer from "../components/SectionIndexLayer.astro";
 
 const sectionMapItems = [
@@ -51,7 +52,10 @@ const referrals = [
 
 <BaseLayout title="Deals & Gear — Robgrappler">
   <div class="page-shell">
-    <a class="page-backlink" href="/">Back to Matroom</a>
+    <div class="gateway-topbar" style="margin-bottom: 2rem;">
+      <a class="page-backlink" href="/">Back</a>
+      <LanguagePicker currentLang="en" />
+    </div>
 
     <header class="page-header">
       <div class="page-eyebrow">Useful Links</div>

@@ -94,10 +94,15 @@
 .match-db-thumb {
   position: relative;
   aspect-ratio: 16 / 9;
-  background-image: var(--match-db-thumb);
-  background-size: cover;
-  background-position: center;
   background-color: rgba(255, 255, 255, 0.04);
+  overflow: hidden;
+}
+
+.match-db-thumb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 .match-db-thumb::after {
@@ -105,7 +110,9 @@
   position: absolute;
   inset: 0;
   background: linear-gradient(180deg, rgba(7, 7, 10, 0.12), rgba(7, 7, 10, 0.7));
+  pointer-events: none;
 }
+
 
 .match-db-thumb-large {
   min-height: 22rem;

@@ -5,7 +5,7 @@ titleEs: "El Desafío Sofocante de Memfight"
 descEn: "Submission grappling at its roughest. Memfight brings a suffocating challenge in this raw competitive match filmed in 4K."
 descEs: "Grappling de sumisión en su estado más crudo. Memfight trae un desafío sofocante en este combate competitivo grabado en 4K."
 thumb: "/images/featured/memfight-part1-thumbnail.jpg"
-href: "https://view.wf/v/avpgwvdf"
+href: "https://tap.robpins.me/new"
 uploadDate: "2026-02-01"
 duration: "8:59"
 durationSeconds: 539
@@ -28,4 +28,4 @@ tags:
 
 Submission grappling at its roughest. Memfight brings a suffocating challenge in this raw, competitive match filmed in 4K.
 
-**Watchfighters:** <https://view.wf/v/avpgwvdf>
+**Watch Now:** <https://tap.robpins.me/new>

@@ -16,7 +16,7 @@ export interface FeaturedMatch {
 export const featuredMatch: FeaturedMatch = {
     title: "Roughhousing Part I: Memfight's Suffocating Challenge",
     subtitle: "Submission Grappling • Rough Competitive Match • 4K",
-    href: "https://view.wf/v/avpgwvdf",
+    href: "https://tap.robpins.me/new",
     tag: "FEATURED",
     duration: "8:59",
     price: "$8.99",

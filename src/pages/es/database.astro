@@ -27,18 +27,19 @@ const years = Array.from(
 
 <BaseLayout title={t("db.title")} description={t("db.subtitle")} lang="es">
     <div class="match-db-page">
-        <div class="match-db-shell">
-            <a class="match-db-back" href="/es/">{t("db.back")}</a>
+        <div class="page-shell">
+            <div class="gateway-topbar" style="margin-bottom: 2rem;">
+                <a class="page-backlink" href="/es/">Volver</a>
+                <LanguagePicker currentLang="es" />
+            </div>
 
-            <header class="match-db-header">
-                <span class="match-db-eyebrow">Digital Matroom</span>
-                <h1 class="match-db-title">{t("db.title")}</h1>
-                <p class="match-db-subtitle">
-                    {t("db.subtitle")}
-                </p>
+            <header class="page-header">
+                <div class="page-eyebrow">Archivo Digital</div>
+                <h1 class="page-title">{t("db.title")}</h1>
+                <p class="page-lead">{t("db.subtitle")}</p>
             </header>
 
-            <div class="match-db-controls">
+            <div class="match-db-controls" style="margin-bottom: 1.5rem;">
                 <SearchBar placeholder={t("db.searchPlaceholder")} />
                 <MatchFilters
                     sources={sources}

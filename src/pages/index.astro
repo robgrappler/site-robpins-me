@@ -254,19 +254,13 @@ const socials = [
       event.shiftKey ||
       event.altKey;
 
-    const beginHandoff = (item, href) => {
-      if (!href) return;
-
+    const beginHandoff = (item) => {
       clearCommitState();
       setActive(item, { force: true });
 
       nav.classList.add("is-handoff");
       page.classList.add("is-handoff");
       item.classList.add("is-committing");
-
-      handoffTimer = window.setTimeout(() => {
-        window.location.assign(href);
-      }, 240);
     };
 
     items.forEach((item) => {
@@ -276,13 +270,12 @@ const socials = [
         if (isModifiedClick(event)) return;
 
         const navKind = item.getAttribute("data-nav-kind");
-        const href = item.getAttribute("href");
-        if (navKind !== "internal" || !href) {
+        if (navKind !== "internal") {
           return;
         }
 
-        event.preventDefault();
-        beginHandoff(item, href);
+        // Just trigger animation, let native navigation handle the link
+        beginHandoff(item);
       });
     });
 
